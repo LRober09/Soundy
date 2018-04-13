@@ -1,0 +1,3 @@
+As a user, I want to be able to switch sound boards, so I can hear multiple sounds.
+As a user, I want different game modes, so the program remains interactive.
+As a user, I want to control the volume, so the sounds are not too loud.
