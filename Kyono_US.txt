@@ -1,0 +1,6 @@
+As a player, I want to be able to switch to different sound boards, so that I can have a variety of themes.
+
+As a player, I want the button sounds to match the button pictures, so that I can learn what makes the different sounds.
+
+As a younger player, I want to press buttons that make noises, so that I can be entertained. 
+

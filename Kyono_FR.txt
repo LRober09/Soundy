@@ -1,0 +1,5 @@
+The system shall make a noise when a button is clicked/pressed/touched.
+
+The system shall be able to change between different soundboards.
+
+The system shall have button pictures that match/correspond to the button noises.
