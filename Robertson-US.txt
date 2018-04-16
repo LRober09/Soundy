@@ -1,0 +1,3 @@
+As a parent, I want my children to be entertained so they don’t annoy me as much
+As a child, I want to press buttons that make sound so I can learn the noises that different objects make
+As a parent, I want my children to know what sounds things make so they don’t grow up stupid
