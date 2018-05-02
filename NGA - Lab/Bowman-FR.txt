@@ -1,3 +1,0 @@
-The system shall provide a matching mode*.
-The system shall provide a timer.
-The system shall provide button creation*.

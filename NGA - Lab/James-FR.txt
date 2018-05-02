@@ -1,3 +1,0 @@
-The system shall provide multiple soundboards.
-The system shall provide multiple modes.
-The system shall provide a volume setting.

@@ -1,3 +1,0 @@
-As a user, I want a game mode where a sequence of sounds are played that I must remember, so that I can improve my memory.
-As a user, I want to obtain in-game currency, so that I can spend it.
-As a user, I want unlockable features, so my experience is unique.
