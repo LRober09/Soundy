@@ -4,6 +4,8 @@ jdk:
 addons:
   sonarcloud:
     organization: "csc307-soundy" # the key of the org you chose at step #3
+    branches:
+      - sonarcloud-setup
 
 script: 
   - ant build
