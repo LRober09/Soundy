@@ -1,3 +1,0 @@
-The system shall provide 3 selectable game modes.
-The system shall provide a casual mode*.
-The system shall provide a memory mode*.

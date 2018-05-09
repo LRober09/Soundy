@@ -1,3 +1,0 @@
-The system shall limit the number of sounds per sound package to a maximum of 10.
-The system shall increment user score by 10 for each sound played.
-The system shall set menu to visible when the menu button is clicked.

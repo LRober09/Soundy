@@ -1,3 +1,0 @@
-As a user, I want an animal-themed sound game, so that I can enjoy playing animal sounds out load.
-As an advanced user, I want to be able to unlock new sound themes, so that I can experience new content.
-As a beginner, I want a game tutorial, so that I can learn how to play the game.

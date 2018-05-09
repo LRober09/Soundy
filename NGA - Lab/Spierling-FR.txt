@@ -1,3 +1,0 @@
-The system shall have selectable buttons in the UI.
-The system shall provide a noise upon a button being selected.
-The system shall provide an appropriate noise based on the button selected.

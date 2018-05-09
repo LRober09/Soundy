@@ -1,3 +1,0 @@
-As a user, I want a button to select, so that I can hear a noise.
-As a user, I want the noise to match the picture on the button, so that I can associate the picture with the noise.
-As a user, I want to have multiple themes, so that I can hear a variety of noises from themed buttons.
