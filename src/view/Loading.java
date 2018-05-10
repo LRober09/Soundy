@@ -7,6 +7,9 @@ import javafx.scene.layout.GridPane;
 import model.Constants;
 
 public class Loading {
+	/*
+	 * Create and return the loading screen scene
+	 */
 	public static Scene create() {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
