@@ -1,0 +1,48 @@
+.button {
+	-fx-background-color: linear-gradient(to bottom right, #2D9CDB 19.32%, #2F80ED 100%); 
+	-fx-text-fill: white;
+	-fx-background-radius: 15;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 2);
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(to bottom right, #2D9CDB 100%, #2F80ED 100%); 
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 6, 0, 0, 2);
+}
+
+.button:pressed {
+	-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 0, 5);
+}
+
+.button-primary {
+	-fx-background-color: linear-gradient(to bottom right, #2D9CDB 19.32%, #2F80ED 100%); 
+}
+
+.button-primary:hover {
+	-fx-background-color: linear-gradient(to bottom right, #2D9CDB 100%, #2F80ED 100%); 
+}
+
+.button-success {
+	-fx-background-color: linear-gradient(to bottom right, #27AE60 19.32%, #219653 100%);
+}
+
+.button-success:hover {
+	-fx-background-color: linear-gradient(to bottom right, #27AE60 100%, #219653 100%);
+}
+
+.button-warning {
+	-fx-background-color: linear-gradient(to bottom right, #F2C94C 19.32%, #FFBB7F 100%);
+}
+
+.button-warning:hover {
+	-fx-background-color: linear-gradient(to bottom right, #F2C94C 100%, #FFBB7F 100%);
+}
+
+.button-danger {
+	-fx-background-color: linear-gradient(to bottom right, #EB5757 19.32%, #D33838 100%);
+}
+
+.button-danger:hover {
+	-fx-background-color: linear-gradient(to bottom right, #EB5757 100%, #D33838 100%);
+}
+
