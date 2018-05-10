@@ -20,6 +20,7 @@ public class MainMenu {
 	private static final String MEMORY = "memory";
 	private static final String GUESSING = "guessing";
 	private static final String SETTINGS = "settings";
+	private static final String SANDBOX = "Sandbox";
 	private static final String TITLE = "SOUNDY";
 	
 	//This is just the structures of the buttons (the text they have and their location)
@@ -27,7 +28,8 @@ public class MainMenu {
 			{CASUAL},
 			{MEMORY},
 			{GUESSING},
-			{SETTINGS}};
+			{SETTINGS},
+			{SANDBOX}};
 	
 	/*
 	 * build and return the main menu scene
@@ -63,6 +65,8 @@ public class MainMenu {
 					Main.changeScene(SceneFactory.MEMORY);
 				}else if(which.equals(SETTINGS)) {
 					Main.changeScene(SceneFactory.SETTINGS);
+				}else if(which.equals(SANDBOX)) {
+					Main.changeScene(SceneFactory.SANDBOX);
 				}
 			}
 		};

@@ -18,6 +18,7 @@ public class SceneFactory {
 	protected static final int GUESSING = 3;
 	protected static final int SETTINGS = 4;
 	protected static final int MEMORY = 5;
+	protected static final int SANDBOX = 6;
 	
 	/*
 	 * 
@@ -35,6 +36,8 @@ public class SceneFactory {
 				return Game.create(type);
 			case SETTINGS:
 				return Settings.create();
+			case SANDBOX:
+				return Sandbox.create();
 			default:
 				return null;
 			
