@@ -5,10 +5,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
 import model.Constants;
+import ui.ButtonStyle;
+import ui.SButton;
 
 public class MainMenu {
 	//These are the keys used to handle button clicks and set the text of the buttons.
@@ -17,6 +20,7 @@ public class MainMenu {
 	private static final String MEMORY = "memory";
 	private static final String GUESSING = "guessing";
 	private static final String SETTINGS = "settings";
+	private static final String SANDBOX = "Sandbox";
 	private static final String TITLE = "SOUNDY";
 	
 	//This is just the structures of the buttons (the text they have and their location)
@@ -24,7 +28,8 @@ public class MainMenu {
 			{CASUAL},
 			{MEMORY},
 			{GUESSING},
-			{SETTINGS}};
+			{SETTINGS},
+			{SANDBOX}};
 	
 	/*
 	 * build and return the main menu scene
@@ -32,6 +37,7 @@ public class MainMenu {
 	public static Scene create() {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
+		grid.getStylesheets().add("assets/style.css");
 		addTitle(grid);
 		addButtons(grid);
 		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -59,6 +65,8 @@ public class MainMenu {
 					Main.changeScene(SceneFactory.MEMORY);
 				}else if(which.equals(SETTINGS)) {
 					Main.changeScene(SceneFactory.SETTINGS);
+				}else if(which.equals(SANDBOX)) {
+					Main.changeScene(SceneFactory.SANDBOX);
 				}
 			}
 		};
@@ -74,5 +82,14 @@ public class MainMenu {
 			}
 			i++;
 		}
+		
+		SButton demoButton = new SButton("Demo", ButtonStyle.SUCCESS);
+		demoButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				demoButton.setCSSStyle(ButtonStyle.DANGER);
+				demoButton.clearStyle();
+			}
+		});
+		grid.add(demoButton, 0, 6);
 	}
 }
