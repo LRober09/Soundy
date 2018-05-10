@@ -1,5 +1,10 @@
 package ui;
 
+/**
+ * ButtonStyle enum for initializing and setting button styles
+ * @author Lucas Robertson
+ *
+ */
 public enum ButtonStyle {
 	PRIMARY ("button-primary"),
 	SUCCESS ("button-success"),
@@ -12,6 +17,10 @@ public enum ButtonStyle {
 		this.value = value;
 	}
 	
+	/**
+	 * Returns the text value of the button style
+	 * @return A CSS class name
+	 */
 	public String getValue() {
 		return this.value;
 	}

@@ -21,6 +21,7 @@ public class Main extends Application{
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		changeScene(SceneFactory.LOADING_SCENE);
+		
 		stage.show();
 		
 		// All this is is a slight delay to show the loading screen then switch to the main menu.

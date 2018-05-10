@@ -5,10 +5,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
 import model.Constants;
+import ui.ButtonStyle;
+import ui.SButton;
 
 public class MainMenu {
 	//These are the keys used to handle button clicks and set the text of the buttons.
@@ -32,6 +35,7 @@ public class MainMenu {
 	public static Scene create() {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
+		grid.getStylesheets().add("assets/style.css");
 		addTitle(grid);
 		addButtons(grid);
 		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -74,5 +78,14 @@ public class MainMenu {
 			}
 			i++;
 		}
+		
+		SButton demoButton = new SButton("Demo", ButtonStyle.SUCCESS);
+		demoButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				demoButton.setCSSStyle(ButtonStyle.DANGER);
+				demoButton.clearStyle();
+			}
+		});
+		grid.add(demoButton, 0, 6);
 	}
 }
