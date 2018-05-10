@@ -10,13 +10,17 @@ import model.Constants;
 
 public class Settings {
 
+	private Settings() {
+
+	}
+
 	public static Scene create() {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		Label title = new Label();
 		title.setText("SETTINGS");
-		grid.add(title, 0,1);
-		
+		grid.add(title, 0, 1);
+
 		Button backButton = new Button();
 		backButton.setAlignment(Pos.TOP_LEFT);
 		backButton.setText("<--");

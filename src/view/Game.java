@@ -10,13 +10,17 @@ import model.Constants;
 
 public class Game {
 
+	private Game() {
+
+	}
+
 	public static Scene create(int type) {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		Label title = new Label();
 		title.setText("GAME");
-		grid.add(title, 0,1);
-		
+		grid.add(title, 0, 1);
+
 		Button backButton = new Button();
 		backButton.setAlignment(Pos.TOP_LEFT);
 		backButton.setText("<--");

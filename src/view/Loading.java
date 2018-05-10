@@ -7,6 +7,11 @@ import javafx.scene.layout.GridPane;
 import model.Constants;
 
 public class Loading {
+	
+	private Loading() {
+		
+	}
+	
 	/*
 	 * Create and return the loading screen scene
 	 */
