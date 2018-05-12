@@ -1,5 +1,7 @@
 package model;
 
+import javafx.geometry.Pos;
+
 public class Constants {
 	/*
 	 * Not sure all of these should be constants or not.. or if this is the best
@@ -8,6 +10,8 @@ public class Constants {
 	 */
 	public static final int SCREEN_WIDTH = 1000;
 	public static final int SCREEN_HEIGHT = 500;
+	
+	public static final Pos DEFAULT_POS = Pos.CENTER;
 
 	private Constants() {
 	}
