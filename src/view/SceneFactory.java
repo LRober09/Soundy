@@ -8,43 +8,36 @@ import javafx.scene.Scene;
  */
 public class SceneFactory {
 	private SceneFactory() {
-		
+
 	}
-	
+
 	/*
 	 * 
 	 * These are the unique identifiers for the scenes.
 	 * 
 	 */
-	public static final int LOADING_SCENE = 0;
-	public static final int MAIN_MENU = 1;
-	protected static final int CASUAL = 2;
-	protected static final int GUESSING = 3;
-	protected static final int SETTINGS = 4;
-	protected static final int MEMORY = 5;
-	protected static final int SANDBOX = 6;
 
 	/*
 	 * 
 	 * This method does the selecting. type is one of the values specified above.
 	 */
-	public static Scene get(int type) {
+	public static Scene get(SceneType type) {
 		switch (type) {
-		case LOADING_SCENE:
-			return Loading.create();
+		case LOADING:
+			return new Loading();
 		case MAIN_MENU:
-			return MainMenu.create();
+			return new MainMenu();
 		case CASUAL:
 		case GUESSING:
 		case MEMORY:
-			return Game.create(type);
+			return new Game(type);
 		case SETTINGS:
-			return Settings.create();
+			return new Settings();
 		case SANDBOX:
-			return Sandbox.create();
+			return new Sandbox();
 		default:
+			//throw new InvalidSceneTypeException(type);
 			return null;
-
 		}
 	}
 

@@ -1,26 +1,24 @@
 package view;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
-import model.Constants;
 import ui.ButtonStyle;
 import ui.SButton;
 import ui.STextField;
 
-public class Sandbox {
-
-	private Sandbox() {
-		
-	}
+public class Sandbox extends SScene {
 	
-	public static Scene create() {
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.getStylesheets().add("assets/style.css");
+	/**
+	 * Creates a new Sandbox scene
+	 */
+	public Sandbox() {
+		super();
+		
+		GridPane grid = (GridPane) this.getRoot();
+		
 		Label title = new Label();
 		title.setText("SANDBOX");
 		grid.add(title, 0, 1);
@@ -28,7 +26,7 @@ public class Sandbox {
 		Button backButton = new Button();
 		backButton.setAlignment(Pos.TOP_LEFT);
 		backButton.setText("<--");
-		backButton.setOnAction(event -> Main.changeScene(SceneFactory.MAIN_MENU));
+		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 		grid.add(backButton, 0, 0);
 
 		SButton primaryButton = new SButton("Primary");
@@ -45,8 +43,6 @@ public class Sandbox {
 		grid.add(dangerButton, 0, 4);
 		grid.add(defaultInput, 1, 1);
 		grid.add(invalidInput, 1, 2);
-
-		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 	}
 
 }
