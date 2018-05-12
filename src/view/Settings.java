@@ -1,32 +1,28 @@
 package view;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
-import model.Constants;
+import ui.SButton;
 
-public class Settings {
+public class Settings extends SScene {
+	/**
+	 * Creates a new Settings scene
+	 */
+	public Settings() {
+		super();
 
-	private Settings() {
+		GridPane root = (GridPane) this.getRoot();
 
-	}
+		Label title = new Label("Settings");
 
-	public static Scene create() {
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		Label title = new Label();
-		title.setText("SETTINGS");
-		grid.add(title, 0, 1);
-
-		Button backButton = new Button();
+		SButton backButton = new SButton();
 		backButton.setAlignment(Pos.TOP_LEFT);
 		backButton.setText("<--");
-		backButton.setOnAction(event -> Main.changeScene(SceneFactory.MAIN_MENU));
-		grid.add(backButton, 0, 0);
-		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-	}
+		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 
+		root.add(title, 0, 1);
+		root.add(backButton, 0, 0);
+	}
 }

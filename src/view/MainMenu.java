@@ -2,17 +2,12 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
-import model.Constants;
-import ui.ButtonStyle;
-import ui.SButton;
 
-public class MainMenu {
+public class MainMenu extends SScene {
 	// These are the keys used to handle button clicks and set the text of the
 	// buttons.
 	// Might be useful to switch these into an arrayList
@@ -22,24 +17,14 @@ public class MainMenu {
 	private static final String SETTINGS = "settings";
 	private static final String SANDBOX = "Sandbox";
 	private static final String TITLE = "SOUNDY";
-
-	private MainMenu() {
-	}
-
-	// This is just the structures of the buttons (the text they have and their
-	// location)
 	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { SETTINGS }, { SANDBOX } };
 
-	/*
-	 * build and return the main menu scene
-	 */
-	public static Scene create() {
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.getStylesheets().add("assets/style.css");
+	public MainMenu() {
+		super();
+
+		GridPane grid = (GridPane) this.getRoot();
 		addTitle(grid);
 		addButtons(grid);
-		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 	}
 
 	// add a title to the grid
@@ -58,15 +43,15 @@ public class MainMenu {
 				Button src = (Button) e.getSource();
 				String which = src.getText();
 				if (which.equals(CASUAL)) {
-					Main.changeScene(SceneFactory.CASUAL);
+					Main.changeScene(SceneType.CASUAL);
 				} else if (which.equals(GUESSING)) {
-					Main.changeScene(SceneFactory.GUESSING);
+					Main.changeScene(SceneType.GUESSING);
 				} else if (which.equals(MEMORY)) {
-					Main.changeScene(SceneFactory.MEMORY);
+					Main.changeScene(SceneType.MEMORY);
 				} else if (which.equals(SETTINGS)) {
-					Main.changeScene(SceneFactory.SETTINGS);
+					Main.changeScene(SceneType.SETTINGS);
 				} else if (which.equals(SANDBOX)) {
-					Main.changeScene(SceneFactory.SANDBOX);
+					Main.changeScene(SceneType.SANDBOX);
 				}
 			}
 		};
@@ -82,14 +67,5 @@ public class MainMenu {
 			}
 			i++;
 		}
-
-		SButton demoButton = new SButton("Demo", ButtonStyle.SUCCESS);
-		demoButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				demoButton.setCSSStyle(ButtonStyle.DANGER);
-				demoButton.clearStyle();
-			}
-		});
-		grid.add(demoButton, 0, 6);
 	}
 }

@@ -1,25 +1,17 @@
 package view;
 
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
-import model.Constants;
 
-public class Loading {
+public class Loading extends SScene {
 	
-	private Loading() {
-		
-	}
-	
-	/*
-	 * Create and return the loading screen scene
+	/**
+	 * Creates a new loading scene
 	 */
-	public static Scene create() {
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
+	public Loading() {
+		super();
+		
 		ProgressBar pb = new ProgressBar();
-		grid.add(pb, 0, 0);
-		return new Scene(grid, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		((GridPane)this.getRoot()).add(pb, 0, 0);
 	}
 }
