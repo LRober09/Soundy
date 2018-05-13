@@ -3,12 +3,12 @@ package view;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 
-public class Loading extends SScene {
+public class LoadingScene extends SScene {
 	
 	/**
 	 * Creates a new loading scene
 	 */
-	public Loading() {
+	public LoadingScene() {
 		super();
 		
 		ProgressBar pb = new ProgressBar();

@@ -28,9 +28,8 @@ public class Main extends Application {
 		// All this is is a slight delay to show the loading screen then switch to the
 		// main menu.
 		 PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
-		 delay.setOnFinished(event -> changeScene(SceneType.MAIN_MENU));
+		 delay.setOnFinished(event -> changeScene(SceneType.LOGIN));
 		 delay.play();
-//		changeScene(SceneType.MAIN_MENU);
 
 	}
 

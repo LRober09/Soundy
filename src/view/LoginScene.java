@@ -13,5 +13,6 @@ public class LoginScene extends SScene {
 		Label label = new Label("Login");
 		
 		STextField usernameTextField = new STextField();
+		
 	}
 }

@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
 
-public class MainMenu extends SScene {
+public class MainMenuScene extends SScene {
 	// These are the keys used to handle button clicks and set the text of the
 	// buttons.
 	// Might be useful to switch these into an arrayList
@@ -19,7 +19,7 @@ public class MainMenu extends SScene {
 	private static final String TITLE = "SOUNDY";
 	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { SETTINGS }, { SANDBOX } };
 
-	public MainMenu() {
+	public MainMenuScene() {
 		super();
 
 		GridPane grid = (GridPane) this.getRoot();

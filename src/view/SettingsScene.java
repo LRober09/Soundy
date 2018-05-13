@@ -6,11 +6,11 @@ import javafx.scene.layout.GridPane;
 import main.Main;
 import ui.SButton;
 
-public class Settings extends SScene {
+public class SettingsScene extends SScene {
 	/**
 	 * Creates a new Settings scene
 	 */
-	public Settings() {
+	public SettingsScene() {
 		super();
 
 		GridPane root = (GridPane) this.getRoot();

@@ -1,13 +1,15 @@
 package view;
 
 public enum SceneType {
+	LOGIN (-1),
 	LOADING (0),
 	MAIN_MENU (1),
 	CASUAL (2),
 	GUESSING (3),
-	SETTINGS (4),
-	MEMORY (5),
-	SANDBOX (6);
+	MEMORY (4),
+	SETTINGS (5),
+	SANDBOX (6),
+	STORE (7);
 	
 	private final int type;
 	
