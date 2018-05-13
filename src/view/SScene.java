@@ -32,6 +32,8 @@ public class SScene extends Scene {
 		GridPane grid = new GridPane();
 		grid.setAlignment(position);
 		grid.getStylesheets().add("assets/style.css");
+		grid.setVgap(10);
+		grid.setHgap(10);
 		return grid;
 	}
 }
