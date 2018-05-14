@@ -7,12 +7,19 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
+import model.Authentication;
 import model.Constants;
 import model.User;
 import ui.SButton;
 import ui.SPasswordField;
 import ui.STextField;
 
+/**
+ * The login/register scene
+ * 
+ * @author Lucas Robertson
+ *
+ */
 public class LoginScene extends SScene {
 	private STextField login_usernameTextField;
 	private SPasswordField login_passwordTextField;
@@ -65,16 +72,24 @@ public class LoginScene extends SScene {
 		this.login_passwordTextField = new SPasswordField();
 		SButton loginButton = new SButton("Login");
 
-		// loginButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 		loginButton.setOnAction(event -> {
-			if(validateLoginFields()) {
-				User user = new User(this.login_usernameTextField.getText().toLowerCase());
-				if(user.authenticateUser(this.login_passwordTextField.getText())) {
+			if (validateLoginFields()) { // Validate username and password fields
+				User user = new User(login_usernameTextField.getText());
+
+				// Try to authenticate user - go to main menu if successful, otherwise display
+				// an error
+				if (user.authenticate(login_passwordTextField.getText())) {
 					Main.changeScene(SceneType.MAIN_MENU);
+				} else {
+					login_usernameTextField.setValid(false);
+					login_passwordTextField.setValid(false);
+					login_usernameFeedbackLabel.setVisible(true);
+					login_usernameFeedbackLabel.setText("Invalid username or password");
 				}
 			}
 		});
 
+		// Add elements to pane
 		loginPane.add(usernameLabel, 0, 0);
 		loginPane.add(this.login_usernameTextField, 0, 1);
 		loginPane.add(this.login_usernameFeedbackLabel, 0, 2);
@@ -109,8 +124,28 @@ public class LoginScene extends SScene {
 		SButton registerButton = new SButton("Register");
 
 		registerButton.setOnAction(event -> {
-			if(validateRegisterFields()) {
-				
+			if (validateRegisterFields()) {
+				User user = new User(register_usernameTextField.getText());
+				switch (Authentication.registerUser(user.getUsername(), register_passwordTextField.getText())) {
+				case ENTRY_EXISTS:
+					this.register_usernameTextField.setValid(false);
+					this.register_usernameFeedbackLabel.setVisible(true);
+					this.register_usernameFeedbackLabel.setText("This user already exists");
+					break;
+				case DB_LOCKED:
+					AlertManager.showFatalError("Database Error",
+							"The database is currently locked. Check your SQLite browser for uncommitted changes!");
+					break;
+				case SQL_EXCEPTION:
+					AlertManager.showFatalError("Database Error", "An error occurred while creating your account!");
+					break;
+				case SUCCESS:
+					user.authenticate(register_passwordTextField.getText());
+					Main.changeScene(SceneType.MAIN_MENU);
+					break;
+				default:
+					break;
+				}
 			}
 		});
 
@@ -133,23 +168,23 @@ public class LoginScene extends SScene {
 		this.login_passwordTextField.setValid(true);
 		this.login_usernameFeedbackLabel.setVisible(false);
 		this.login_passwordFeedbackLabel.setVisible(false);
-		
+
 		// Validate username length
-		if(this.login_usernameTextField.getText().length() == 0) {
+		if (this.login_usernameTextField.getText().length() == 0) {
 			this.login_usernameTextField.setValid(false);
 			this.login_usernameFeedbackLabel.setVisible(true);
 			this.login_usernameFeedbackLabel.setText("Required");
 			return false;
 		}
-		
+
 		// Validate password length
-		if(this.login_passwordTextField.getText().length() == 0) {
+		if (this.login_passwordTextField.getText().length() == 0) {
 			this.login_passwordTextField.setValid(false);
 			this.login_passwordFeedbackLabel.setVisible(true);
 			this.login_passwordFeedbackLabel.setText("Required");
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -160,30 +195,30 @@ public class LoginScene extends SScene {
 		this.register_usernameTextField.setValid(true);
 		this.register_passwordTextField.setValid(true);
 		this.register_confirmTextField.setValid(true);
-		
+
 		// Validate username length
-		if(this.register_usernameTextField.getText().length() == 0) {
+		if (this.register_usernameTextField.getText().length() == 0) {
 			this.register_usernameTextField.setValid(false);
 			this.register_usernameFeedbackLabel.setVisible(true);
 			this.register_usernameFeedbackLabel.setText("Required");
 			return false;
 		}
-		
+
 		// Validate password length
-		if(this.register_passwordTextField.getText().length() < 6) {
+		if (this.register_passwordTextField.getText().length() < 6) {
 			this.register_passwordTextField.setValid(false);
 			this.register_passwordFeedbackLabel.setVisible(true);
 			this.register_passwordFeedbackLabel.setText("Password must be at least 6 characters");
 			return false;
-		} else if (!this.register_passwordTextField.getText().equals(this.register_confirmTextField.getText())) { // Validate passwords match
+		} else if (!this.register_passwordTextField.getText().equals(this.register_confirmTextField.getText())) { // Validate
+																													// passwords
+																													// match
 			this.register_confirmTextField.setValid(false);
 			this.register_passwordFeedbackLabel.setVisible(true);
 			this.register_passwordFeedbackLabel.setText("Passwords do not match");
 			return false;
 		}
-		
-		
-		System.out.println("Valid!");
+
 		return true;
 	}
 }

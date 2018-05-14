@@ -4,6 +4,9 @@ import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Authentication;
+import model.SQLite;
+import model.User;
 import view.SceneFactory;
 import view.SceneType;
 
@@ -27,10 +30,18 @@ public class Main extends Application {
 
 		// All this is is a slight delay to show the loading screen then switch to the
 		// main menu.
-		 PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
-		 delay.setOnFinished(event -> changeScene(SceneType.LOGIN));
-		 delay.play();
+		PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+		delay.setOnFinished(event -> changeScene(SceneType.LOGIN));
+		delay.play();
 
+	}
+
+	@Override
+	public void stop() {
+		// Remove current user's token on application exit
+		if (User.getCurrentUser() != null) {
+			SQLite.clearUserToken(User.getCurrentUser().getUsername()).getValue();
+		}
 	}
 
 	/*
