@@ -1,7 +1,5 @@
 package view;
 
-import javafx.scene.Scene;
-
 /*
  * This class is a utility to select scenes across the app
  * 
@@ -21,22 +19,23 @@ public class SceneFactory {
 	 * 
 	 * This method does the selecting. type is one of the values specified above.
 	 */
-	public static Scene get(SceneType type) {
+	public static SScene get(SceneType type) {
 		switch (type) {
+		case LOGIN:
+			return new LoginScene();
 		case LOADING:
-			return new Loading();
+			return new LoadingScene();
 		case MAIN_MENU:
-			return new MainMenu();
+			return new MainMenuScene();
 		case CASUAL:
 		case GUESSING:
 		case MEMORY:
-			return new Game(type);
+			return new GameScene(type);
 		case SETTINGS:
-			return new Settings();
+			return new SettingsScene();
 		case SANDBOX:
 			return new Sandbox();
 		default:
-			//throw new InvalidSceneTypeException(type);
 			return null;
 		}
 	}
