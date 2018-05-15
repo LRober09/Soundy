@@ -1,9 +1,14 @@
 package main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.SQLite;
+import model.User;
 import view.SceneFactory;
 import view.SceneType;
 
@@ -13,6 +18,7 @@ import view.SceneType;
  */
 public class Main extends Application {
 	private static Stage stage;
+	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 	public static void main(String[] args) {
 		launch(args);
@@ -27,11 +33,22 @@ public class Main extends Application {
 
 		// All this is is a slight delay to show the loading screen then switch to the
 		// main menu.
-		 PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
-		 delay.setOnFinished(event -> changeScene(SceneType.MAIN_MENU));
-		 delay.play();
-//		changeScene(SceneType.MAIN_MENU);
+		PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+		delay.setOnFinished(event -> changeScene(SceneType.LOGIN));
+		delay.play();
 
+	}
+
+	@Override
+	public void stop() {
+		// Remove current user's token on application exit
+		if (User.getCurrentUser() != null) {
+			try {
+				SQLite.clearUserToken(User.getCurrentUser().getUsername()).getValue();
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, e.getMessage());
+			}
+		}
 	}
 
 	/*

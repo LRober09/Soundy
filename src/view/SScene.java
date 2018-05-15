@@ -20,6 +20,14 @@ public class SScene extends Scene {
 	public SScene() {
 		super(buildGrid(Constants.DEFAULT_POS), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 	}
+	
+	/**
+	 * Creates a new SScene with the specified layout positioning
+	 * @param layout JavaFX Pos layout
+	 */
+	public SScene(Pos layout) {
+		super(buildGrid(layout), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+	}
 
 	/**
 	 * Initializes the root node of the scene
@@ -32,6 +40,8 @@ public class SScene extends Scene {
 		GridPane grid = new GridPane();
 		grid.setAlignment(position);
 		grid.getStylesheets().add("assets/style.css");
+		grid.setVgap(10);
+		grid.setHgap(10);
 		return grid;
 	}
 }
