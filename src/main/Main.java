@@ -1,5 +1,8 @@
 package main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,6 +18,7 @@ import view.SceneType;
  */
 public class Main extends Application {
 	private static Stage stage;
+	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 	public static void main(String[] args) {
 		launch(args);
@@ -42,7 +46,7 @@ public class Main extends Application {
 			try {
 				SQLite.clearUserToken(User.getCurrentUser().getUsername()).getValue();
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage());
 			}
 		}
 	}

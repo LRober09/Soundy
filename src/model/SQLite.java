@@ -16,6 +16,10 @@ public class SQLite {
 	private static final String DB_URL = "jdbc:sqlite:soundy.db";
 	private static final Logger logger = Logger.getLogger(SQLite.class.getName());
 
+	private static final String USERS = "Users";
+	private static final String USERNAME = "Username";
+	private static final String TOKEN = "Token";
+
 	private SQLite() {
 	}
 
@@ -31,6 +35,7 @@ public class SQLite {
 		connection.setAutoCommit(true);
 
 		return connection;
+
 	}
 
 	/**
@@ -55,12 +60,14 @@ public class SQLite {
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
 			String variableValue, String condition, String conditionValue) throws SQLException {
-		String base = "UPDATE " + table + " SET " + variable + "=?" + " WHERE " + condition + "=?";
+		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
+				.replaceFirst("~", condition);
 		PreparedStatement statement = connection.prepareStatement(base);
 		statement.setString(1, variableValue);
 		statement.setString(2, conditionValue);
 
 		return statement;
+
 	}
 
 	/**
@@ -80,33 +87,33 @@ public class SQLite {
 	 */
 	private static PreparedStatement createPreparedSelectStatement(Connection connection, String table,
 			String condition, String conditionValue) throws SQLException {
-		String base = "SELECT * FROM " + table + " WHERE " + condition + "=?";
+		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
 		PreparedStatement statement = connection.prepareStatement(base);
 		statement.setString(1, conditionValue);
-
 		return statement;
+
 	}
 
 	/**
 	 * Creates a PreparedStatement to perform an insert on the User table. The
 	 * resulting SQL query will be: "INSERT INTO Users (Username, Password) VALUES
-	 * (username, password)"
+	 * (username, passwordHash)"
 	 * 
 	 * @param connection
 	 *            The database connnection
 	 * @param username
 	 *            The username to insert
-	 * @param passwordHash
-	 *            The hashed password to insert
+	 * @param passwordHashHash
+	 *            The hashed passwordHash to insert
 	 * @return A PreparedStatement for the given Connection
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
-			String passwordHash) throws SQLException {
+			String passwordHashHash) throws SQLException {
 		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
 		PreparedStatement statement = connection.prepareStatement(base);
 		statement.setString(1, username);
-		statement.setString(2, passwordHash);
+		statement.setString(2, passwordHashHash);
 
 		return statement;
 	}
@@ -116,18 +123,18 @@ public class SQLite {
 	 * 
 	 * @param username
 	 *            User's useranme
-	 * @param passwordHash
-	 *            User's hashed password
+	 * @param passwordHashHash
+	 *            User's hashed passwordHash
 	 * @return An SQLResponseCode corresponding to the result of the insert
 	 *         operation
 	 * @throws SQLException
 	 *             if an exception occurs while trying to close the connection in a
 	 *             catch block
 	 */
-	public static SQLResponseCodes insertUser(String username, String passwordHash) throws SQLException {
+	public static SQLResponseCodes insertUser(String username, String passwordHashHash) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedUserInsertStatement(connection, username,
-						passwordHash)) {
+						passwordHashHash)) {
 			statement.execute();
 
 			return SQLResponseCodes.SUCCESS;
@@ -155,7 +162,7 @@ public class SQLite {
 	 */
 	public static int getUserId(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, "Users", "Username",
+				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
 						username);
 				ResultSet result = statement.executeQuery()) {
 
@@ -173,7 +180,7 @@ public class SQLite {
 	}
 
 	/**
-	 * Retrieves a user's hashed password from the database
+	 * Retrieves a user's hashed passwordHash from the database
 	 * 
 	 * @param username
 	 *            The user's username
@@ -182,17 +189,18 @@ public class SQLite {
 	 */
 	public static String getUserPassword(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, "Users", "Username",
+				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
 						username);
 				ResultSet result = statement.executeQuery()) {
 
-			String password = "";
+			String passwordHash = "";
 			while (result.next()) {
-				password = result.getString("Password");
+				passwordHash = result.getString("Password");
 			}
 
-			return password;
+			return passwordHash;
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.log(Level.SEVERE, e.getMessage());
 			return "";
 		}
@@ -208,16 +216,16 @@ public class SQLite {
 	 */
 	public static String getUserToken(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, "Users", "Username",
+				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
 						username);
 				ResultSet result = statement.executeQuery()) {
 
-			String password = "";
+			String passwordHash = "";
 			while (result.next()) {
-				password = result.getString("Token");
+				passwordHash = result.getString("Token");
 			}
 
-			return password;
+			return passwordHash;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return null;
@@ -237,8 +245,8 @@ public class SQLite {
 	 */
 	public static SQLResponseCodes updateUserToken(String username, String token) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, "Users", "Token", token,
-						"Username", username)) {
+				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, token,
+						USERNAME, username)) {
 			statement.execute();
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLException e) {
@@ -257,8 +265,8 @@ public class SQLite {
 	 */
 	public static SQLResponseCodes clearUserToken(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, "Users", "Token", "null",
-						"Username", username)) {
+				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, "null",
+						USERNAME, username)) {
 			statement.execute();
 
 			return SQLResponseCodes.SUCCESS;

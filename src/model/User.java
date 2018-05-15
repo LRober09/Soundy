@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User class - stores identification, authentication, and profile information
@@ -11,6 +13,7 @@ import java.sql.SQLException;
  */
 public class User {
 	private static User currentUser;
+	private static final Logger logger = Logger.getLogger(User.class.getName());
 
 	private int id;
 	private String username;
@@ -58,7 +61,7 @@ public class User {
 		try {
 			return this.token.equals(SQLite.getUserToken(this.username));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage());
 			return false;
 		}
 	}
