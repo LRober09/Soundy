@@ -21,17 +21,24 @@ import ui.STextField;
  *
  */
 public class LoginScene extends SScene {
-	private STextField login_usernameTextField;
-	private SPasswordField login_passwordTextField;
+	
+	private static final String MSG_REQ = "Required";
+	private static final String MSG_INVALID = "Invalid username or password";
+	private static final String MSG_EXISTS = "User already exists";
+	private static final String MSG_LENGTH = "Password must be at least 6 characters";
+	private static final String MSG_MATCH = "Passwords do not match";
+	
+	private STextField loginUsernameTextField;
+	private SPasswordField loginPasswordTextField;
 
-	private STextField register_usernameTextField;
-	private SPasswordField register_passwordTextField;
-	private SPasswordField register_confirmTextField;
+	private STextField registerUsernameTextField;
+	private SPasswordField registerPasswordTextField;
+	private SPasswordField registerConfirmTextField;
 
-	private Label login_usernameFeedbackLabel;
-	private Label login_passwordFeedbackLabel;
-	private Label register_usernameFeedbackLabel;
-	private Label register_passwordFeedbackLabel;
+	private Label loginUsernameFeedbackLabel;
+	private Label loginPasswordFeedbackLabel;
+	private Label registerUsernameFeedbackLabel;
+	private Label registerPasswordFeedbackLabel;
 
 	public LoginScene() {
 		super(Pos.TOP_LEFT);
@@ -66,36 +73,36 @@ public class LoginScene extends SScene {
 
 		Label usernameLabel = new Label("Username:");
 		Label passwordLabel = new Label("Password:");
-		this.login_usernameFeedbackLabel = new Label();
-		this.login_passwordFeedbackLabel = new Label();
-		this.login_usernameTextField = new STextField();
-		this.login_passwordTextField = new SPasswordField();
+		this.loginUsernameFeedbackLabel = new Label();
+		this.loginPasswordFeedbackLabel = new Label();
+		this.loginUsernameTextField = new STextField();
+		this.loginPasswordTextField = new SPasswordField();
 		SButton loginButton = new SButton("Login");
 
 		loginButton.setOnAction(event -> {
 			if (validateLoginFields()) { // Validate username and password fields
-				User user = new User(login_usernameTextField.getText());
+				User user = new User(loginUsernameTextField.getText());
 
 				// Try to authenticate user - go to main menu if successful, otherwise display
 				// an error
-				if (user.authenticate(login_passwordTextField.getText())) {
+				if (user.authenticate(loginPasswordTextField.getText())) {
 					Main.changeScene(SceneType.MAIN_MENU);
 				} else {
-					login_usernameTextField.setValid(false);
-					login_passwordTextField.setValid(false);
-					login_usernameFeedbackLabel.setVisible(true);
-					login_usernameFeedbackLabel.setText("Invalid username or password");
+					loginUsernameTextField.setValid(false);
+					loginPasswordTextField.setValid(false);
+					loginUsernameFeedbackLabel.setVisible(true);
+					loginUsernameFeedbackLabel.setText(MSG_INVALID);
 				}
 			}
 		});
 
 		// Add elements to pane
 		loginPane.add(usernameLabel, 0, 0);
-		loginPane.add(this.login_usernameTextField, 0, 1);
-		loginPane.add(this.login_usernameFeedbackLabel, 0, 2);
+		loginPane.add(this.loginUsernameTextField, 0, 1);
+		loginPane.add(this.loginUsernameFeedbackLabel, 0, 2);
 		loginPane.add(passwordLabel, 1, 0);
-		loginPane.add(this.login_passwordTextField, 1, 1);
-		loginPane.add(this.login_passwordFeedbackLabel, 1, 2);
+		loginPane.add(this.loginPasswordTextField, 1, 1);
+		loginPane.add(this.loginPasswordFeedbackLabel, 1, 2);
 		loginPane.add(loginButton, 2, 1);
 
 		return loginPane;
@@ -112,25 +119,25 @@ public class LoginScene extends SScene {
 		Label passwordLabel = new Label("Password:");
 		Label confirmLabel = new Label("Confirm Password:");
 
-		this.register_usernameFeedbackLabel = new Label();
-		this.register_passwordFeedbackLabel = new Label();
+		this.registerUsernameFeedbackLabel = new Label();
+		this.registerPasswordFeedbackLabel = new Label();
 
-		this.register_usernameFeedbackLabel.setVisible(false);
-		this.register_passwordFeedbackLabel.setVisible(false);
+		this.registerUsernameFeedbackLabel.setVisible(false);
+		this.registerPasswordFeedbackLabel.setVisible(false);
 
-		this.register_usernameTextField = new STextField();
-		this.register_passwordTextField = new SPasswordField();
-		this.register_confirmTextField = new SPasswordField();
+		this.registerUsernameTextField = new STextField();
+		this.registerPasswordTextField = new SPasswordField();
+		this.registerConfirmTextField = new SPasswordField();
 		SButton registerButton = new SButton("Register");
 
 		registerButton.setOnAction(event -> {
 			if (validateRegisterFields()) {
-				User user = new User(register_usernameTextField.getText());
-				switch (Authentication.registerUser(user.getUsername(), register_passwordTextField.getText())) {
+				User user = new User(registerUsernameTextField.getText());
+				switch (Authentication.registerUser(user.getUsername(), registerPasswordTextField.getText())) {
 				case ENTRY_EXISTS:
-					this.register_usernameTextField.setValid(false);
-					this.register_usernameFeedbackLabel.setVisible(true);
-					this.register_usernameFeedbackLabel.setText("This user already exists");
+					this.registerUsernameTextField.setValid(false);
+					this.registerUsernameFeedbackLabel.setVisible(true);
+					this.registerUsernameFeedbackLabel.setText(MSG_EXISTS);
 					break;
 				case DB_LOCKED:
 					AlertManager.showFatalError("Database Error",
@@ -140,7 +147,7 @@ public class LoginScene extends SScene {
 					AlertManager.showFatalError("Database Error", "An error occurred while creating your account!");
 					break;
 				case SUCCESS:
-					user.authenticate(register_passwordTextField.getText());
+					user.authenticate(registerPasswordTextField.getText());
 					Main.changeScene(SceneType.MAIN_MENU);
 					break;
 				default:
@@ -150,13 +157,13 @@ public class LoginScene extends SScene {
 		});
 
 		registerPane.add(usernameLabel, 0, 0);
-		registerPane.add(this.register_usernameTextField, 0, 1);
-		registerPane.add(this.register_usernameFeedbackLabel, 0, 2);
+		registerPane.add(this.registerUsernameTextField, 0, 1);
+		registerPane.add(this.registerUsernameFeedbackLabel, 0, 2);
 		registerPane.add(passwordLabel, 1, 0);
-		registerPane.add(this.register_passwordTextField, 1, 1);
-		registerPane.add(this.register_passwordFeedbackLabel, 1, 2);
+		registerPane.add(this.registerPasswordTextField, 1, 1);
+		registerPane.add(this.registerPasswordFeedbackLabel, 1, 2);
 		registerPane.add(confirmLabel, 2, 0);
-		registerPane.add(this.register_confirmTextField, 2, 1);
+		registerPane.add(this.registerConfirmTextField, 2, 1);
 		registerPane.add(registerButton, 3, 1);
 
 		return registerPane;
@@ -164,24 +171,24 @@ public class LoginScene extends SScene {
 
 	private boolean validateLoginFields() {
 		// Reset field validation
-		this.login_usernameTextField.setValid(true);
-		this.login_passwordTextField.setValid(true);
-		this.login_usernameFeedbackLabel.setVisible(false);
-		this.login_passwordFeedbackLabel.setVisible(false);
+		this.loginUsernameTextField.setValid(true);
+		this.loginPasswordTextField.setValid(true);
+		this.loginUsernameFeedbackLabel.setVisible(false);
+		this.loginPasswordFeedbackLabel.setVisible(false);
 
 		// Validate username length
-		if (this.login_usernameTextField.getText().length() == 0) {
-			this.login_usernameTextField.setValid(false);
-			this.login_usernameFeedbackLabel.setVisible(true);
-			this.login_usernameFeedbackLabel.setText("Required");
+		if (this.loginUsernameTextField.getText().length() == 0) {
+			this.loginUsernameTextField.setValid(false);
+			this.loginUsernameFeedbackLabel.setVisible(true);
+			this.loginUsernameFeedbackLabel.setText(MSG_REQ);
 			return false;
 		}
 
 		// Validate password length
-		if (this.login_passwordTextField.getText().length() == 0) {
-			this.login_passwordTextField.setValid(false);
-			this.login_passwordFeedbackLabel.setVisible(true);
-			this.login_passwordFeedbackLabel.setText("Required");
+		if (this.loginPasswordTextField.getText().length() == 0) {
+			this.loginPasswordTextField.setValid(false);
+			this.loginPasswordFeedbackLabel.setVisible(true);
+			this.loginPasswordFeedbackLabel.setText(MSG_REQ);
 			return false;
 		}
 
@@ -190,32 +197,32 @@ public class LoginScene extends SScene {
 
 	private boolean validateRegisterFields() {
 		// Reset field validation
-		this.register_usernameFeedbackLabel.setVisible(false);
-		this.register_passwordFeedbackLabel.setVisible(false);
-		this.register_usernameTextField.setValid(true);
-		this.register_passwordTextField.setValid(true);
-		this.register_confirmTextField.setValid(true);
+		this.registerUsernameFeedbackLabel.setVisible(false);
+		this.registerPasswordFeedbackLabel.setVisible(false);
+		this.registerUsernameTextField.setValid(true);
+		this.registerPasswordTextField.setValid(true);
+		this.registerConfirmTextField.setValid(true);
 
 		// Validate username length
-		if (this.register_usernameTextField.getText().length() == 0) {
-			this.register_usernameTextField.setValid(false);
-			this.register_usernameFeedbackLabel.setVisible(true);
-			this.register_usernameFeedbackLabel.setText("Required");
+		if (this.registerUsernameTextField.getText().length() == 0) {
+			this.registerUsernameTextField.setValid(false);
+			this.registerUsernameFeedbackLabel.setVisible(true);
+			this.registerUsernameFeedbackLabel.setText(MSG_REQ);
 			return false;
 		}
 
 		// Validate password length
-		if (this.register_passwordTextField.getText().length() < 6) {
-			this.register_passwordTextField.setValid(false);
-			this.register_passwordFeedbackLabel.setVisible(true);
-			this.register_passwordFeedbackLabel.setText("Password must be at least 6 characters");
+		if (this.registerPasswordTextField.getText().length() < 6) {
+			this.registerPasswordTextField.setValid(false);
+			this.registerPasswordFeedbackLabel.setVisible(true);
+			this.registerPasswordFeedbackLabel.setText(MSG_LENGTH);
 			return false;
-		} else if (!this.register_passwordTextField.getText().equals(this.register_confirmTextField.getText())) { // Validate
-																													// passwords
-																													// match
-			this.register_confirmTextField.setValid(false);
-			this.register_passwordFeedbackLabel.setVisible(true);
-			this.register_passwordFeedbackLabel.setText("Passwords do not match");
+		} else if (!this.registerPasswordTextField.getText().equals(this.registerConfirmTextField.getText())) { // Validate
+																												// passwords
+																												// match
+			this.registerConfirmTextField.setValid(false);
+			this.registerPasswordFeedbackLabel.setVisible(true);
+			this.registerPasswordFeedbackLabel.setText(MSG_MATCH);
 			return false;
 		}
 

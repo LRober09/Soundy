@@ -4,7 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.Authentication;
 import model.SQLite;
 import model.User;
 import view.SceneFactory;

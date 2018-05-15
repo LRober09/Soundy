@@ -18,6 +18,9 @@ public class Authentication {
 	private static final char[] CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 			.toCharArray();
 
+	private Authentication() {
+	}
+
 	/**
 	 * Attempt to authenticate a given username and password combination
 	 * 
@@ -26,7 +29,7 @@ public class Authentication {
 	 * @param password
 	 *            The requesting user's plaintext password
 	 * @return An authentication token if authentication succeeded, "invalid" if the
-	 *         authentication failed because of a password mismatch, or null if an
+	 *         authentication failed because of a password mismatch, or an empty string if an
 	 *         error occurred.
 	 */
 	public static String authenticate(String username, String password) {
@@ -35,7 +38,7 @@ public class Authentication {
 			if (SQLite.updateUserToken(username, token) == SQLResponseCodes.SUCCESS) {
 				return token;
 			} else {
-				return null;
+				return "";
 			}
 		} else {
 			return "invalid";
@@ -52,7 +55,12 @@ public class Authentication {
 	 * @return An SQLResponseCode corresponding to the result of the operation
 	 */
 	public static SQLResponseCodes registerUser(String username, String password) {
-		return SQLite.insertUser(username, Authentication.hashPassword(password));
+		try {
+			return SQLite.insertUser(username, Authentication.hashPassword(password));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return SQLResponseCodes.SQL_EXCEPTION;
+		}
 	}
 
 	/**
@@ -67,7 +75,7 @@ public class Authentication {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest(plaintext.getBytes(StandardCharsets.UTF_8));
 
-			StringBuffer hashString = new StringBuffer();
+			StringBuilder hashString = new StringBuilder();
 			for (int i = 0; i < hash.length; i++) {
 				String hex = Integer.toHexString(0xff & hash[i]);
 				if (hex.length() == 1) {
@@ -80,7 +88,7 @@ public class Authentication {
 			return hashString.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return null;
+			return "";
 		}
 	}
 

@@ -33,15 +33,17 @@ public class User {
 	 */
 	public boolean authenticate(String password) {
 		String result = Authentication.authenticate(this.username, password);
-		if (result.equals("invalid") || result == null) {
+		if (result.equals("invalid") || result.equals("")) {
 			return false;
 		} else {
-			this.token = result;
-			this.id = SQLite.getUserId(username);
-			System.out.println(
-					"Successfully authenticated " + this.username + "\nID: " + this.id + "\tToken: " + this.token);
-			User.setCurrentUser(this);
-			return true;
+			try {
+				this.token = result;
+				this.id = SQLite.getUserId(username);
+				User.setCurrentUser(this);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 
