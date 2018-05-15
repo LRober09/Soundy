@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLException;
+
 /**
  * User class - stores identification, authentication, and profile information
  * for a user
@@ -53,7 +55,12 @@ public class User {
 	 * @return True if the user is authenticated
 	 */
 	public boolean isAuthenticated() {
-		return this.token.equals(SQLite.getUserToken(this.username));
+		try {
+			return this.token.equals(SQLite.getUserToken(this.username));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

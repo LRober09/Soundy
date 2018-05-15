@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import util.SQLResponseCodes;
 
@@ -17,6 +19,7 @@ public class Authentication {
 
 	private static final char[] CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 			.toCharArray();
+	private static final Logger logger = Logger.getLogger(Authentication.class.getName());
 
 	private Authentication() {
 	}
@@ -29,19 +32,21 @@ public class Authentication {
 	 * @param password
 	 *            The requesting user's plaintext password
 	 * @return An authentication token if authentication succeeded, "invalid" if the
-	 *         authentication failed because of a password mismatch, or an empty string if an
-	 *         error occurred.
+	 *         authentication failed because of a password mismatch, or an empty
+	 *         string if an error occurred.
 	 */
 	public static String authenticate(String username, String password) {
-		if (Authentication.hashPassword(password).equals(SQLite.getUserPassword(username))) {
-			String token = Authentication.generateToken();
-			if (SQLite.updateUserToken(username, token) == SQLResponseCodes.SUCCESS) {
+		try {
+			if (Authentication.hashPassword(password).equals(SQLite.getUserPassword(username))) {
+				String token = Authentication.generateToken();
+				SQLite.updateUserToken(username, token);
 				return token;
 			} else {
-				return "";
+				return "invalid";
 			}
-		} else {
-			return "invalid";
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			return "";
 		}
 	}
 
@@ -57,8 +62,8 @@ public class Authentication {
 	public static SQLResponseCodes registerUser(String username, String password) {
 		try {
 			return SQLite.insertUser(username, Authentication.hashPassword(password));
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
 	}
@@ -87,7 +92,7 @@ public class Authentication {
 
 			return hashString.toString();
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage());
 			return "";
 		}
 	}
