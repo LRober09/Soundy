@@ -19,6 +19,8 @@ public class SQLite {
 	private static final String USERS = "Users";
 	private static final String USERNAME = "Username";
 	private static final String TOKEN = "Token";
+	private static final String PASSWORD = "Password";
+	private static final String ID = "ID";
 
 	private SQLite() {
 	}
@@ -97,23 +99,23 @@ public class SQLite {
 	/**
 	 * Creates a PreparedStatement to perform an insert on the User table. The
 	 * resulting SQL query will be: "INSERT INTO Users (Username, Password) VALUES
-	 * (username, passwordHash)"
+	 * (username, hash)"
 	 * 
 	 * @param connection
 	 *            The database connnection
 	 * @param username
 	 *            The username to insert
-	 * @param passwordHashHash
-	 *            The hashed passwordHash to insert
+	 * @param hashHash
+	 *            The hashed hash to insert
 	 * @return A PreparedStatement for the given Connection
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
-			String passwordHashHash) throws SQLException {
+			String hashHash) throws SQLException {
 		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
 		PreparedStatement statement = connection.prepareStatement(base);
 		statement.setString(1, username);
-		statement.setString(2, passwordHashHash);
+		statement.setString(2, hashHash);
 
 		return statement;
 	}
@@ -123,18 +125,18 @@ public class SQLite {
 	 * 
 	 * @param username
 	 *            User's useranme
-	 * @param passwordHashHash
-	 *            User's hashed passwordHash
+	 * @param hashHash
+	 *            User's hashed hash
 	 * @return An SQLResponseCode corresponding to the result of the insert
 	 *         operation
 	 * @throws SQLException
 	 *             if an exception occurs while trying to close the connection in a
 	 *             catch block
 	 */
-	public static SQLResponseCodes insertUser(String username, String passwordHashHash) throws SQLException {
+	public static SQLResponseCodes insertUser(String username, String hashHash) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedUserInsertStatement(connection, username,
-						passwordHashHash)) {
+						hashHash)) {
 			statement.execute();
 
 			return SQLResponseCodes.SUCCESS;
@@ -169,7 +171,7 @@ public class SQLite {
 			int id = -1;
 
 			while (result.next()) {
-				id = result.getInt("ID");
+				id = result.getInt(ID);
 			}
 
 			return id;
@@ -180,7 +182,7 @@ public class SQLite {
 	}
 
 	/**
-	 * Retrieves a user's hashed passwordHash from the database
+	 * Retrieves a user's hashed hash from the database
 	 * 
 	 * @param username
 	 *            The user's username
@@ -193,14 +195,13 @@ public class SQLite {
 						username);
 				ResultSet result = statement.executeQuery()) {
 
-			String passwordHash = "";
+			String hash = "";
 			while (result.next()) {
-				passwordHash = result.getString("Password");
+				hash = result.getString(PASSWORD);
 			}
 
-			return passwordHash;
+			return hash;
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.log(Level.SEVERE, e.getMessage());
 			return "";
 		}
@@ -220,12 +221,12 @@ public class SQLite {
 						username);
 				ResultSet result = statement.executeQuery()) {
 
-			String passwordHash = "";
+			String hash = "";
 			while (result.next()) {
-				passwordHash = result.getString("Token");
+				hash = result.getString(TOKEN);
 			}
 
-			return passwordHash;
+			return hash;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return null;
