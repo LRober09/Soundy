@@ -43,6 +43,7 @@ public class Main extends Application {
 	public void stop() {
 		// Remove current user's token on application exit
 		if (User.getCurrentUser() != null) {
+			System.out.println("here");
 			try {
 				SQLite.clearUserToken(User.getCurrentUser().getUsername()).getValue();
 			} catch (Exception e) {

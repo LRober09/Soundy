@@ -40,6 +40,7 @@ public class SQLite {
 
 	}
 
+	
 	/**
 	 * Creates a PreparedStatement to perform an Update operation. The resulting SQL
 	 * query will be: "UPDATE table SET variable=variableValue WHERE
@@ -266,12 +267,13 @@ public class SQLite {
 	 */
 	public static SQLResponseCodes clearUserToken(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, "null",
+				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, null,
 						USERNAME, username)) {
 			statement.execute();
-
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLException e) {
+			System.out.println("error");
+			e.printStackTrace();
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
 	}
