@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
+import model.SettingsModel;
 import ui.SButton;
 
 public class GameScene extends SScene {
@@ -26,6 +27,7 @@ public class GameScene extends SScene {
 		backButton.setText("<--");
 		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 		grid.add(backButton, 0, 0);
+		grid.add(SettingsModel.soundboard.getView(), 1, 1);
 	}
 
 }
