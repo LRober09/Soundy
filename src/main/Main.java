@@ -31,11 +31,7 @@ public class Main extends Application {
 		launch(args);
 	}
 	private static void initApp() {
-		/*TODO: put this default somewhere else!*/
-		ArrayList<SoundInformation> defaultSounds = new ArrayList<SoundInformation>();
-		defaultSounds.add(new SoundInformation("res/images/farm/pig.jpg", "res/sounds/farm/pig.wav"));
-		defaultSounds.add(new SoundInformation("res/images/farm/pig.jpg", "res/sounds/farm/pig.wav"));
-		SettingsModel.soundboard = new SoundBoard(defaultSounds);
+		SettingsModel.soundboard = new SoundBoard(SoundBoard.getDefaultList());
 	}
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -71,5 +67,4 @@ public class Main extends Application {
 	public static void changeScene(SceneType key) {
 		stage.setScene(SceneFactory.get(key));
 	}
-
 }

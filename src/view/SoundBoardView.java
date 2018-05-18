@@ -7,32 +7,26 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import main.Main;
+import model.SoundBoard;
 import model.SoundInformation;
 
 public class SoundBoardView extends GridPane{
-	public SoundBoardView(ArrayList<SoundInformation> data) {
+	public SoundBoardView(SoundBoard model) {
 		super();
 		int where = 0;
-		for(SoundInformation info : data) {
+		for(SoundInformation info : model.getData()) {
 			String image = info.image;
 			String sound = info.sound;
 			File f = new File(image);
 			Image i = new Image(f.toURI().toString());
-			Button cur = new Button("", new ImageView(i));
-			
-			
-			
-			cur.setOnAction(event -> playSound(sound));
+			ImageView iv = new ImageView(i);
+			iv.setFitWidth(100);
+			iv.setFitHeight(100);
+			Button cur = new Button("", iv);
+			cur.setOnAction(event -> model.playSound(sound));
 			this.add(cur, where++, 0);
 		}
 	}
-	private void playSound(String sound) {
-		Media media = new Media(new File(sound).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.play();
-	}
+	
 
 }
