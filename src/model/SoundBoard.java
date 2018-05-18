@@ -8,7 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import view.SoundBoardView;
 
 public class SoundBoard {
-	private static String[] defaultList = {"pig", "cow"};
+	private static String[] defaultList = {"pig", "cow", "chicken"};
 	private SoundBoardView view;
 	private ArrayList<SoundInformation> data;
 	public SoundBoard(ArrayList<SoundInformation> data) {

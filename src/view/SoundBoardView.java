@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
