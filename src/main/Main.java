@@ -1,6 +1,5 @@
 package main;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +15,6 @@ import model.SoundInformation;
 import model.User;
 import view.SceneFactory;
 import view.SceneType;
-import view.SoundBoardView;
 
 /*
  * This acts as the main controller to connect the View and Model 
