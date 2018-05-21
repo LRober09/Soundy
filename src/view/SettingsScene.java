@@ -7,11 +7,13 @@ import main.Main;
 import model.SettingsModel;
 import model.SoundBoard;
 import ui.SButton;
+import ui.STextField;
 
 public class SettingsScene extends SScene {
 	/**
 	 * Creates a new Settings scene
 	 */
+	private STextField boardName;
 	public SettingsScene() {
 		super();
 
@@ -27,15 +29,18 @@ public class SettingsScene extends SScene {
 		SButton swapBoard = new SButton();
 		swapBoard.setAlignment(Pos.TOP_LEFT);
 		swapBoard.setText("swapBoard");
-		String[] TEMPLIST = {"cow", "dog", "pig"};
-		swapBoard.setOnAction(event -> updateSoundModel(TEMPLIST, "farm"));
+		swapBoard.setOnAction(event -> updateSoundModel());
+		
+		
+		boardName = new STextField("Board Name");
 		
 		root.add(title, 0, 1);
 		root.add(backButton, 0, 0);
-		root.add(swapBoard, 0, 3);
+		root.add(swapBoard, 0, 4);
+		root.add(boardName, 0, 3);
 	}
 
-	private void updateSoundModel(String[] list, String name) {
-		SettingsModel.soundboard = new SoundBoard(SoundBoard.listToInfo(list, name));
+	private void updateSoundModel() {
+		SettingsModel.soundboard = new SoundBoard(SoundBoard.nameToInfo(boardName.getText()));
 	}
 }
