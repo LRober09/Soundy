@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.Main;
+import model.SettingsModel;
+import model.SoundBoard;
 import ui.SButton;
 
 public class SettingsScene extends SScene {
@@ -22,7 +24,18 @@ public class SettingsScene extends SScene {
 		backButton.setText("<--");
 		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 
+		SButton swapBoard = new SButton();
+		swapBoard.setAlignment(Pos.TOP_LEFT);
+		swapBoard.setText("swapBoard");
+		String[] TEMPLIST = {"cow", "dog", "pig"};
+		swapBoard.setOnAction(event -> updateSoundModel(TEMPLIST, "farm"));
+		
 		root.add(title, 0, 1);
 		root.add(backButton, 0, 0);
+		root.add(swapBoard, 0, 3);
+	}
+
+	private void updateSoundModel(String[] list, String name) {
+		SettingsModel.soundboard = new SoundBoard(SoundBoard.listToInfo(list, name));
 	}
 }

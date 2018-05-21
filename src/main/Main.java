@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,6 +9,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.SQLite;
+import model.SettingsModel;
+import model.SoundBoard;
+import model.SoundInformation;
 import model.User;
 import view.SceneFactory;
 import view.SceneType;
@@ -19,11 +23,14 @@ import view.SceneType;
 public class Main extends Application {
 	private static Stage stage;
 	private static final Logger logger = Logger.getLogger(Main.class.getName());
-
+	
 	public static void main(String[] args) {
+		initApp();
 		launch(args);
 	}
-
+	private static void initApp() {
+		SettingsModel.soundboard = new SoundBoard(SoundBoard.getDefaultList());
+	}
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
@@ -58,5 +65,4 @@ public class Main extends Application {
 	public static void changeScene(SceneType key) {
 		stage.setScene(SceneFactory.get(key));
 	}
-
 }
