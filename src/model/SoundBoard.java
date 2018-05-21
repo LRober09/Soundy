@@ -28,8 +28,6 @@ public class SoundBoard {
 			
 			info.add(new SoundInformation("res/" + name + "/images/" + item + ".jpg", 
 					"res/" + name + "/sounds/" + item + ".wav"));
-			/*info.add(new SoundInformation("res/images/farm/" + item + ".jpg", 
-					"res/sounds/" + name + "/" + item + ".wav"));*/
 		}
 		return info;	
 	}
