@@ -26,8 +26,8 @@ public class SoundBoard {
 		ArrayList<SoundInformation> info = new ArrayList<SoundInformation>();
 		for(String item : list) {
 			
-			info.add(new SoundInformation("res/" + name + "/images/" + item + ".jpg", 
-					"res/" + name + "/sounds/" + item + ".wav"));
+			info.add(new SoundInformation("res/soundboards/" + name + "/images/" + item + ".jpg", 
+					"res/soundboards/" + name + "/sounds/" + item + ".wav"));
 		}
 		return info;	
 	}
@@ -40,7 +40,7 @@ public class SoundBoard {
 		return data;
 	}
 	public static ArrayList<SoundInformation> nameToInfo(String name) {
-		File f = new File("res/" + name + "/images");
+		File f = new File("res/soundboards/" + name + "/images");
 		File[] files = f.listFiles();
 		String[] list = new String[files.length];
 		for(int i = 0; i < files.length; i++) {

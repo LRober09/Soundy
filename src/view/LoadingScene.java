@@ -14,4 +14,5 @@ public class LoadingScene extends SScene {
 		ProgressBar pb = new ProgressBar();
 		((GridPane)this.getRoot()).add(pb, 0, 0);
 	}
+	
 }
