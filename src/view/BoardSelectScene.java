@@ -25,12 +25,12 @@ public class BoardSelectScene extends SScene {
 		backButton.setText("<--");
 		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
 		grid.add(backButton, 0, 0);
-		createSelector(grid);
+		createSelector(grid, 2);
 	}
 
-	private void createSelector(GridPane grid) {
+	private void createSelector(GridPane grid, int row) {
 		File[] boards = new File("res/soundboards").listFiles();
-		int i = 2;
+		int i = row;
 		for(File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
 			selectBoard.setOnAction(event -> {
