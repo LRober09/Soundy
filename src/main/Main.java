@@ -35,6 +35,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		changeScene(SceneType.LOADING);
+		
 
 		stage.show();
 

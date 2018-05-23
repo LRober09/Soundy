@@ -15,10 +15,11 @@ public class MainMenuScene extends SScene {
 	private static final String MEMORY = "memory";
 	private static final String GUESSING = "guessing";
 	private static final String BOARD_SELECT = "Select Sound Board";
+	private static final String BOARD_CREATE = "Create Sound Board";
 	private static final String SETTINGS = "settings";
 	private static final String SANDBOX = "Sandbox";
 	private static final String TITLE = "SOUNDY";
-	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT }, { SETTINGS }, { SANDBOX } };
+	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT }, { BOARD_CREATE }, { SETTINGS }, { SANDBOX } };
 
 	public MainMenuScene() {
 		super();
@@ -55,6 +56,8 @@ public class MainMenuScene extends SScene {
 					Main.changeScene(SceneType.SANDBOX);
 				} else if (which.equals(BOARD_SELECT)) {
 					Main.changeScene(SceneType.BOARD_SELECT);
+				} else if (which.equals(BOARD_CREATE)) {
+					Main.changeScene(SceneType.BOARD_CREATE);
 				}
 			}
 		};

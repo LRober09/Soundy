@@ -48,5 +48,14 @@ public class SoundBoard {
 		}
 		return listToInfo(list, name);
 	}
+	public static ArrayList<SoundInformation> pathListToInfo(ArrayList<String[]> list) {
+		ArrayList<SoundInformation> info = new ArrayList<SoundInformation>();
+		for(String[] item : list) {
+			
+			info.add(new SoundInformation(item[0], item[1]));
+		}
+		return info;
+	}
+	
 	
 }
