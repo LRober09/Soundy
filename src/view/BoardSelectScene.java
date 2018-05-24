@@ -4,6 +4,7 @@ import java.io.File;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
 import model.SettingsModel;
@@ -14,21 +15,14 @@ public class BoardSelectScene extends SScene {
 
 	public BoardSelectScene() {
 		super();
-		
-		GridPane grid = (GridPane) this.getRoot();
 
-		Label title = new Label();
-		title.setText("Board Select");
-		grid.add(title, 0, 1);
-		SButton backButton = new SButton();
-		backButton.setAlignment(Pos.TOP_LEFT);
-		backButton.setText("<--");
-		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
-		grid.add(backButton, 0, 0);
-		createSelector(grid, 2);
+		BorderPane root = (BorderPane) this.getRoot();
+		Common.addTopBar(root, "Board Select", true);
+		createSelector(root, 0);
 	}
 
-	private void createSelector(GridPane grid, int row) {
+	private void createSelector(BorderPane root, int row) {
+		GridPane grid = new GridPane();
 		File[] boards = new File("res/soundboards").listFiles();
 		int i = row;
 		for(File board : boards) {
@@ -38,6 +32,8 @@ public class BoardSelectScene extends SScene {
 			});
 			grid.add(selectBoard, 0, i++);
 		}
+		grid.setAlignment(Pos.CENTER);
+		root.setCenter(grid);
 	}	
 
 }

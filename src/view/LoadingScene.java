@@ -1,7 +1,7 @@
 package view;
 
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 
 public class LoadingScene extends SScene {
 	
@@ -12,7 +12,7 @@ public class LoadingScene extends SScene {
 		super();
 		
 		ProgressBar pb = new ProgressBar();
-		((GridPane)this.getRoot()).add(pb, 0, 0);
+		((BorderPane)this.getRoot()).setCenter(pb);
 	}
 	
 }

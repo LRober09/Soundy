@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
 import model.BoardCreator;
@@ -18,22 +20,27 @@ import ui.STextField;
 
 public class BoardCreatorScene extends SScene {
 	private STextField name;
+	private GridPane center;
 	public BoardCreatorScene() {
 		super();
 		BoardCreator.pathlist = new ArrayList<String[]>();
-		GridPane grid = (GridPane) this.getRoot();
+		BorderPane root = (BorderPane) this.getRoot();
+		Common.addTopBar(root, "Board Create", true);
+		root.setBottom(selectorBottomBar());
+		root.setCenter(createCenter());
 
-		Label title = new Label();
-		title.setText("Board Select");
-		// grid.add(title, 0, 1);
 		
-		SButton backButton = new SButton();
-		backButton.setAlignment(Pos.TOP_LEFT);
-		backButton.setText("<--");
-		backButton.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
-		grid.add(backButton, 0, 0);
+	}
+	
+	private Node createCenter() {
+		center = new GridPane();
+		center.setAlignment(Pos.CENTER);
+		return center;
+	}
+
+	private BorderPane selectorBottomBar() {
+		BorderPane bp = new BorderPane();
 		SButton save = new SButton("save");
-		grid.add(save, 0, 3);
 		save.setOnAction(event -> {
 			try {
 				BoardCreator.saveBoard(name.getText());
@@ -41,34 +48,36 @@ public class BoardCreatorScene extends SScene {
 				e.printStackTrace();
 			}
 		});
-		createSelector(grid, 4);
+		save.setAlignment(Pos.CENTER);
 		
-		STextField name = new STextField("name", true);
-		grid.add(name, 1, 0);
-		this.name = name;
-
-
-		
+		name = new STextField("name", true);
+		GridPane g = new GridPane();
+		createSelector(g);
+		g.setAlignment(Pos.CENTER);
+		bp.setTop(g);
+		name.setAlignment(Pos.CENTER);
+		bp.setCenter(name);
+		save.setAlignment(Pos.CENTER);
+		bp.setBottom(save);
+		return bp;
 	}
 
-	private void createSelector(GridPane grid, int row) {
+	private void createSelector(GridPane grid) {
 		ArrayList<File> boards = new ArrayList<File>(Arrays.asList(new File("res/soundboards").listFiles()));
 		removeUserBoards(boards);
-		int i = row;
+		int i = 0;
 		for (File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
 			selectBoard.setOnAction(event -> {
 				updateSoundBoard(new SoundBoard(SoundBoard.nameToInfo(board.getName())));
 			});
-			grid.add(selectBoard, 0, i++);
+			grid.add(selectBoard, i++, 0);
 		}
-
 	}
 
 	private void updateSoundBoard(SoundBoard soundBoard) {
-		GridPane grid = (GridPane) this.getRoot();
 		try {
-			grid.getChildren().remove(BoardCreator.soundBoard.getView());
+			center.getChildren().remove(BoardCreator.soundBoard.getView());
 		} catch (NullPointerException npe) {
 			// this means the board is not yet set
 		}
@@ -81,15 +90,16 @@ public class BoardCreatorScene extends SScene {
 				addToUserBoard(location);
 			});
 		}
-		grid.add(soundBoard.getView(), 0, 2);
+		soundBoard.getView().setAlignment(Pos.CENTER);
+		center.add(soundBoard.getView(), 0, 0);
 	}
 
 	private void addToUserBoard(String loc) {
 		BoardCreator.pathlist.add(getPaths(loc));
 		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo(BoardCreator.pathlist));
 		BoardCreator.newBoard = board;
-		GridPane grid = (GridPane) this.getRoot();
-		grid.add(board.getView(), 0, 1);
+		board.getView().setAlignment(Pos.CENTER);
+		center.add(board.getView(), 0, 1);
 	}
 
 	private String[] getPaths(String loc) {
