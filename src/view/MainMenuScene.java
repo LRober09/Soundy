@@ -2,9 +2,13 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import main.Main;
 
 public class MainMenuScene extends SScene {
@@ -23,17 +27,26 @@ public class MainMenuScene extends SScene {
 
 	public MainMenuScene() {
 		super();
-
-		GridPane grid = (GridPane) this.getRoot();
-		addTitle(grid);
+		
+		BorderPane root = (BorderPane) this.getRoot();
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		addTitle(root);
 		addButtons(grid);
+		root.setCenter(grid);
 	}
 
 	// add a title to the grid
-	private static void addTitle(GridPane grid) {
+	private static void addTitle(BorderPane root) {
 		Label title = new Label();
 		title.setText(TITLE);
-		grid.add(title, 0, 0);
+		title.setFont(new Font("55", 55));
+		title.setAlignment(Pos.CENTER);
+		title.setTextAlignment(TextAlignment.CENTER);
+		BorderPane.setAlignment(title, Pos.CENTER);
+		root.setTop(title);
+		
+		
 	}
 
 	// add buttons to the grid and set up the event handler

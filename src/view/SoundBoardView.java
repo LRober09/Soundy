@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,5 +34,6 @@ public class SoundBoardView extends GridPane {
 			buttons.add(cur);
 			locations.add(image);
 		}
+		this.setAlignment(Pos.CENTER);
 	}
 }
