@@ -64,7 +64,6 @@ public class BoardCreatorScene extends SScene {
 
 	private void createSelector(GridPane grid) {
 		ArrayList<File> boards = new ArrayList<File>(Arrays.asList(new File("res/soundboards").listFiles()));
-		removeUserBoards(boards);
 		int i = 0;
 		for (File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
@@ -91,33 +90,23 @@ public class BoardCreatorScene extends SScene {
 			});
 		}
 		soundBoard.getView().setAlignment(Pos.CENTER);
-		center.add(soundBoard.getView(), 0, 0);
+		center.add(soundBoard.getView(), 0, 1);
 	}
 
 	private void addToUserBoard(String loc) {
-		BoardCreator.pathlist.add(getPaths(loc));
+		for(int i = 0; i < BoardCreator.pathlist.size(); i++) {
+			if(BoardCreator.pathlist.get(i)[0].equals(loc)){
+				BoardCreator.pathlist.remove(i);
+				break;
+			}
+		}
+		BoardCreator.pathlist.add(BoardCreator.getPaths(loc));
 		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo(BoardCreator.pathlist));
 		BoardCreator.newBoard = board;
 		board.getView().setAlignment(Pos.CENTER);
-		center.add(board.getView(), 0, 1);
+		center.add(board.getView(), 0, 0);
 	}
 
-	private String[] getPaths(String loc) {
-		System.out.println(loc);
-		String boardName = loc.split("/")[2];
-		String objectName = loc.split("/")[4].split("\\.")[0];
-		String[] paths = new String[2];
-		paths[0] = "res/soundboards/" + boardName + "/images/" + objectName + ".jpg";
-		paths[1] = "res/soundboards/" + boardName + "/sounds/" + objectName + ".wav";
-		return paths;
-	}
-
-	private void removeUserBoards(ArrayList<File> boards) {
-		for (int i = 0; i < boards.size(); i++) {
-			if (boards.get(i).getName().contains("USER")) {
-				boards.remove(i);
-			}
-		}
-	}
+	
 
 }

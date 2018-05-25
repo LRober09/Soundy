@@ -53,4 +53,16 @@ public class BoardCreator {
 	private static String getName(String loc) {
 		return loc.split("/")[4].split("\\.")[0];
 	}
+	
+	
+	public static String[] getPaths(String loc) {
+		String boardName = loc.split("/")[2];
+		String objectName = loc.split("/")[4].split("\\.")[0];
+		String[] paths = new String[2];
+		paths[0] = "res/soundboards/" + boardName + "/images/" + objectName + ".jpg";
+		paths[1] = "res/soundboards/" + boardName + "/sounds/" + objectName + ".wav";
+		return paths;
+	}
+	
+	
 }
