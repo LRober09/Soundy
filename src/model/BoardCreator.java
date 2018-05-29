@@ -11,21 +11,16 @@ public class BoardCreator {
 	public static ArrayList<String[]> pathlist;
 
 	public static void saveBoard(String boardname) throws IOException {
-		String boardPath = "res/soundboards/"+boardname;
-		String imagepath = "res/soundboards/"+boardname+"/images";
-		String soundpath = "res/soundboards/"+boardname+"/sounds";
+		String boardPath = "res/soundboards/" + boardname;
+		String imagepath = "res/soundboards/" + boardname + "/images";
+		String soundpath = "res/soundboards/" + boardname + "/sounds";
 
 		File board = new File(boardPath);
 		if (board.exists()) {
-			// remove all children
-			for (File f : board.listFiles()) {
-				for(File data : f.listFiles()) {
-					data.delete();
-				}
-			}
+			throw new IOException("Board Aready Exists");
 		} else {
 			// create it
-			//board.mkdirs();
+			// board.mkdirs();
 			Files.createDirectories(board.toPath());
 		}
 		File images = new File(imagepath);
@@ -42,19 +37,18 @@ public class BoardCreator {
 
 			File newImage = new File(imagepath + "/" + name + ".jpg");
 			File newSound = new File(soundpath + "/" + name + ".wav");
-			//newImage.createNewFile();
-			//newSound.createNewFile();
+			// newImage.createNewFile();
+			// newSound.createNewFile();
 			Files.copy(originalImage.toPath(), newImage.toPath());
 			Files.copy(originalSound.toPath(), newSound.toPath());
 
 		}
 	}
 
-	private static String getName(String loc) {
+	public static String getName(String loc) {
 		return loc.split("/")[4].split("\\.")[0];
 	}
-	
-	
+
 	public static String[] getPaths(String loc) {
 		String boardName = loc.split("/")[2];
 		String objectName = loc.split("/")[4].split("\\.")[0];
@@ -63,6 +57,5 @@ public class BoardCreator {
 		paths[1] = "res/soundboards/" + boardName + "/sounds/" + objectName + ".wav";
 		return paths;
 	}
-	
-	
+
 }

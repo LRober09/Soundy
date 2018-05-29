@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -28,8 +29,6 @@ public class BoardCreatorScene extends SScene {
 		Common.addTopBar(root, "Board Create", true);
 		root.setBottom(selectorBottomBar());
 		root.setCenter(createCenter());
-
-		
 	}
 	
 	private Node createCenter() {
@@ -45,7 +44,8 @@ public class BoardCreatorScene extends SScene {
 			try {
 				BoardCreator.saveBoard(name.getText());
 			} catch (IOException e) {
-				e.printStackTrace();
+				name.setText("Error Creating Board: " + e.getMessage());
+
 			}
 		});
 		save.setAlignment(Pos.CENTER);
@@ -56,9 +56,11 @@ public class BoardCreatorScene extends SScene {
 		g.setAlignment(Pos.CENTER);
 		bp.setTop(g);
 		name.setAlignment(Pos.CENTER);
-		bp.setCenter(name);
+		name.setMaxWidth(300);
+		bp.setCenter(name);		
 		save.setAlignment(Pos.CENTER);
 		bp.setBottom(save);
+		BorderPane.setAlignment(save, Pos.CENTER);
 		return bp;
 	}
 
@@ -95,7 +97,7 @@ public class BoardCreatorScene extends SScene {
 
 	private void addToUserBoard(String loc) {
 		for(int i = 0; i < BoardCreator.pathlist.size(); i++) {
-			if(BoardCreator.pathlist.get(i)[0].equals(loc)){
+			if(BoardCreator.getName(BoardCreator.pathlist.get(i)[0]).equals(BoardCreator.getName(loc))){
 				BoardCreator.pathlist.remove(i);
 				break;
 			}
@@ -106,7 +108,4 @@ public class BoardCreatorScene extends SScene {
 		board.getView().setAlignment(Pos.CENTER);
 		center.add(board.getView(), 0, 0);
 	}
-
-	
-
 }
