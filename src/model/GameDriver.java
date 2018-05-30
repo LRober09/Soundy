@@ -24,7 +24,7 @@ public class GameDriver {
 			break;
 		}
 	}
-
+	
 	private void initCasualDriver() {
 		for(Button b : SettingsModel.soundboard.getView().buttons) {
 			b.setOnAction(e -> SettingsModel.soundboard.playSound(b));
@@ -78,17 +78,7 @@ public class GameDriver {
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
-	private synchronized void waitForSound() {
-		while(SoundBoard.done == false) {
-			//System.out.println("twiddling");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+
 	private void playSequence() {
 		ArrayList<MediaPlayer> list = new ArrayList<MediaPlayer>();
 		for(Button b : sequence) {
@@ -100,12 +90,13 @@ public class GameDriver {
 				@Override
 				public void run() {
 					if(j + 1 < list.size()) {
+						list.get(j).dispose();
 						list.get(j+1).play();
 					}
 				}
 			});
+			
 		}
 		list.get(0).play();
-		
 	}
 }
