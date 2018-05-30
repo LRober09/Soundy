@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
+import model.GameDriver;
 import model.SettingsModel;
 import ui.SButton;
 
@@ -18,10 +19,10 @@ public class GameScene extends SScene {
 	 */
 	public GameScene(SceneType type) {
 		super();
-
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Game: " + type.getValue(), true);
 		root.setCenter(SettingsModel.soundboard.getView());
+		GameDriver d = new GameDriver(type);
 	}
 
 }
