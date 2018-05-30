@@ -71,17 +71,16 @@ public class SoundBoard {
 		return done;
 	}
 	public void playSound(Button b) {
+		System.out.println("playing sound");
 		int i = getView().buttons.indexOf(b);
 		Media media = new Media(new File(data.get(i).sound).toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
-		// Duration d = mediaPlayer.getTotalDuration();
-		mediaPlayer.setOnEndOfMedia(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("yooo");
-				SoundBoard.done = true;
-			}
-		});
+	}
+	public MediaPlayer getplayer(Button b) {
+		int i = getView().buttons.indexOf(b);
+		Media media = new Media(new File(data.get(i).sound).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		return mediaPlayer;
 	}
 }
