@@ -272,7 +272,6 @@ public class SQLite {
 			statement.execute();
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLException e) {
-			System.out.println("error");
 			e.printStackTrace();
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
