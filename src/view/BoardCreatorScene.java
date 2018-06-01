@@ -103,7 +103,7 @@ public class BoardCreatorScene extends SScene {
 			}
 		}
 		BoardCreator.pathlist.add(BoardCreator.getPaths(loc));
-		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo(BoardCreator.pathlist));
+		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo((ArrayList<String[]>) BoardCreator.pathlist));
 		BoardCreator.newBoard = board;
 		board.getView().setAlignment(Pos.CENTER);
 		center.add(board.getView(), 0, 0);
