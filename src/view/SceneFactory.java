@@ -35,6 +35,10 @@ public class SceneFactory {
 			return new SettingsScene();
 		case SANDBOX:
 			return new Sandbox();
+		case BOARD_SELECT:
+			return new BoardSelectScene();
+		case BOARD_CREATE:
+			return new BoardCreatorScene();
 		default:
 			return null;
 		}

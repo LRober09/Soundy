@@ -9,7 +9,9 @@ public enum SceneType {
 	MEMORY (4),
 	SETTINGS (5),
 	SANDBOX (6),
-	STORE (7);
+	STORE (7), 
+	BOARD_SELECT (8), 
+	BOARD_CREATE (9);
 	
 	private final int type;
 	

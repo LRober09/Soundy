@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Constants;
 
@@ -18,9 +19,17 @@ public class SScene extends Scene {
 	 * Default constructor
 	 */
 	public SScene() {
-		super(buildGrid(Constants.DEFAULT_POS), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		super(buildBoarder(Constants.DEFAULT_POS), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 	}
 	
+	private static BorderPane buildBoarder(Pos defaultPos) {
+
+		
+		BorderPane bp = new BorderPane();
+		bp.getStylesheets().add("assets/style.css");
+		return bp;
+	}
+
 	/**
 	 * Creates a new SScene with the specified layout positioning
 	 * @param layout JavaFX Pos layout
