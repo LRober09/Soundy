@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +10,6 @@ import javafx.util.Duration;
 import model.SQLite;
 import model.SettingsModel;
 import model.SoundBoard;
-import model.SoundInformation;
 import model.User;
 import view.SceneFactory;
 import view.SceneType;
@@ -33,7 +31,7 @@ public class Main extends Application {
 	}
 	@Override
 	public void start(Stage stage) throws Exception {
-		Main.stage = stage;
+		setStage(stage);
 		changeScene(SceneType.LOADING);
 		
 
@@ -51,7 +49,6 @@ public class Main extends Application {
 	public void stop() {
 		// Remove current user's token on application exit
 		if (User.getCurrentUser() != null) {
-			System.out.println("here");
 			try {
 				SQLite.clearUserToken(User.getCurrentUser().getUsername()).getValue();
 			} catch (Exception e) {
@@ -63,7 +60,13 @@ public class Main extends Application {
 	/*
 	 * This method switches what is actually being displayed
 	 */
+	private static Stage getStage() {
+		return Main.stage;
+	}
+	private static void setStage(Stage s) {
+		Main.stage = s;
+	}
 	public static void changeScene(SceneType key) {
-		stage.setScene(SceneFactory.get(key));
+		getStage().setScene(SceneFactory.get(key));
 	}
 }
