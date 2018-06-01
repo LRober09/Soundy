@@ -3,10 +3,8 @@ package view;
 import java.io.File;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import main.Main;
 import model.SettingsModel;
 import model.SoundBoard;
 import ui.SButton;
