@@ -1,5 +1,4 @@
-package model;
-
+package model; 
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,8 +9,8 @@ public class GameDriver {
 	private ArrayList<Button> sequence;
 	private ArrayList<Button> tempSequence;
 	public GameDriver(SceneType type) {
-		sequence = new ArrayList<Button>();
-		tempSequence = new ArrayList<Button>();
+		sequence = new ArrayList<>();
+		tempSequence = new ArrayList<>();
 		switch(type) {
 		case GUESSING:
 			initGuessingDriver();
@@ -41,16 +40,12 @@ public class GameDriver {
 	private void memClick(Button b) {
 		boolean good = false;
 		if(tempSequence.remove(0).equals(b)) {
-			System.out.println("continue");
 			good = true;
 		} 
 		if(!good) {
-			System.out.println("you messed up!");
 		}
-		if(tempSequence.size() == 0) {
-			System.out.println("next level");
+		if(tempSequence.isEmpty()) {
 			genNextItem();
-			return;
 		}
 	}
 
@@ -63,38 +58,31 @@ public class GameDriver {
 
 	private void guessClick(Button b) {
 		if(sequence.remove(0).equals(b)) {
-			System.out.println("good");
 			genNextItem();
 		} else {
-			System.out.println("bad");
 		}
 	}
 
 	private void genNextItem() {
 		Random rand = new Random();
 		int button = rand.nextInt(SettingsModel.soundboard.getView().buttons.size());
-		System.out.println(button);
 		sequence.add(SettingsModel.soundboard.getView().buttons.get(button));
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
 
 	private void playSequence() {
-		ArrayList<MediaPlayer> list = new ArrayList<MediaPlayer>();
+		ArrayList<MediaPlayer> list = new ArrayList<>();
 		for(Button b : sequence) {
 			list.add(SettingsModel.soundboard.getplayer(b));
 		}
 		for(int i = 0; i < list.size(); i++) {
 			final int j = i;
-			list.get(i).setOnEndOfMedia(new Runnable() {
-				@Override
-				public void run() {
-					if(j + 1 < list.size()) {
-						list.get(j).dispose();
-						list.get(j+1).play();
-					}
-				}
-			});
+			list.get(i).setOnEndOfMedia(() -> {
+				if(j + 1 < list.size()) {
+					list.get(j).dispose();
+					list.get(j+1).play();
+			}});
 			
 		}
 		list.get(0).play();
