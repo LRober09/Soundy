@@ -5,16 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import main.Main;
 import model.BoardCreator;
-import model.SettingsModel;
 import model.SoundBoard;
 import ui.SButton;
 import ui.STextField;
@@ -65,13 +61,11 @@ public class BoardCreatorScene extends SScene {
 	}
 
 	private void createSelector(GridPane grid) {
-		ArrayList<File> boards = new ArrayList<File>(Arrays.asList(new File("res/soundboards").listFiles()));
+		ArrayList<File> boards = new ArrayList<>(Arrays.asList(new File("res/soundboards").listFiles()));
 		int i = 0;
 		for (File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
-			selectBoard.setOnAction(event -> {
-				updateSoundBoard(new SoundBoard(SoundBoard.nameToInfo(board.getName())));
-			});
+			selectBoard.setOnAction(event -> updateSoundBoard(new SoundBoard(SoundBoard.nameToInfo(board.getName()))));
 			grid.add(selectBoard, i++, 0);
 		}
 	}
@@ -87,9 +81,7 @@ public class BoardCreatorScene extends SScene {
 		ArrayList<String> locations = soundBoard.getView().locations;
 		for (int i = 0; i < buttons.size(); i++) {
 			String location = locations.get(i);
-			buttons.get(i).setOnAction(event -> {
-				addToUserBoard(location);
-			});
+			buttons.get(i).setOnAction(event -> addToUserBoard(location));
 		}
 		soundBoard.getView().setAlignment(Pos.CENTER);
 		center.add(soundBoard.getView(), 0, 1);
