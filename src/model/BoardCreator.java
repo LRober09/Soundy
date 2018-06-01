@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class BoardCreator {
-	private final static String BASE = "res/soundboards/";
+	private static final String BASE = "res/soundboards/";
 	public static SoundBoard soundBoard;
 	public static SoundBoard newBoard;
 	public static List<String[]> pathlist;
