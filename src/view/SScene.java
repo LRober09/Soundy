@@ -19,10 +19,10 @@ public class SScene extends Scene {
 	 * Default constructor
 	 */
 	public SScene() {
-		super(buildBoarder(Constants.DEFAULT_POS), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		super(buildBoarder(), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 	}
 	
-	private static BorderPane buildBoarder(Pos defaultPos) {
+	private static BorderPane buildBoarder() {
 
 		
 		BorderPane bp = new BorderPane();
