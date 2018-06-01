@@ -25,9 +25,7 @@ public class BoardSelectScene extends SScene {
 		int i = row;
 		for(File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
-			selectBoard.setOnAction(event -> {
-				SettingsModel.soundboard = new SoundBoard(SoundBoard.nameToInfo(board.getName()));
-			});
+			selectBoard.setOnAction(event -> SettingsModel.soundboard = new SoundBoard(SoundBoard.nameToInfo(board.getName())));
 			grid.add(selectBoard, 0, i++);
 		}
 		grid.setAlignment(Pos.CENTER);
