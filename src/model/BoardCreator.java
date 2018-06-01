@@ -8,7 +8,11 @@ import java.util.ArrayList;
 public class BoardCreator {
 	public static SoundBoard soundBoard;
 	public static SoundBoard newBoard;
-	public static ArrayList<String[]> pathlist;
+	public static ArrayList<String[]> pathlist = new ArrayList<String[]>();
+	
+	private BoardCreator() {
+		
+	}
 
 	public static void saveBoard(String boardname) throws IOException {
 		String boardPath = "res/soundboards/" + boardname;
