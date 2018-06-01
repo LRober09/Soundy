@@ -1,0 +1,16 @@
+diff --git a/bin/model/SettingsModel.class b/bin/model/SettingsModel.class
+index be5a0c7..779ae41 100644
+Binary files a/bin/model/SettingsModel.class and b/bin/model/SettingsModel.class differ
+diff --git a/src/model/SettingsModel.java b/src/model/SettingsModel.java
+index 449b69d..68af9be 100644
+--- a/src/model/SettingsModel.java
++++ b/src/model/SettingsModel.java
+@@ -1,8 +1,5 @@
+ package model;
+ 
+ public class SettingsModel {
+-	private SettingsModel() {
+-		
+-	}
+ 	public static SoundBoard soundboard = null;
+ }

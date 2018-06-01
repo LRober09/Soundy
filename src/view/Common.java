@@ -11,6 +11,9 @@ import ui.ButtonStyle;
 import ui.SButton;
 
 public class Common {
+	private Common() {
+		
+	}
 	public static SButton backButton() {
 		SButton b = new SButton("<--", ButtonStyle.PRIMARY);
 		b.setOnAction(event -> Main.changeScene(SceneType.MAIN_MENU));
