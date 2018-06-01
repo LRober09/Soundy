@@ -6,10 +6,10 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class BoardCreator {
+	private final static String BASE = "res/soundboards/";
 	public static SoundBoard soundBoard;
 	public static SoundBoard newBoard;
 	public static List<String[]> pathlist;
-	private final static String base = "res/soundboards/";
 	
 	private BoardCreator() {
 		
@@ -17,9 +17,9 @@ public class BoardCreator {
 
 	public static void saveBoard(String boardname) throws IOException {
 		
-		String boardPath = base + boardname;
-		String imagepath = base + boardname + "/images";
-		String soundpath = base + boardname + "/sounds";
+		String boardPath = BASE + boardname;
+		String imagepath = BASE + boardname + "/images";
+		String soundpath = BASE + boardname + "/sounds";
 
 		File board = new File(boardPath);
 		if (board.exists()) {
@@ -54,8 +54,8 @@ public class BoardCreator {
 		String boardName = loc.split("/")[2];
 		String objectName = loc.split("/")[4].split("\\.")[0];
 		String[] paths = new String[2];
-		paths[0] = base + boardName + "/images/" + objectName + ".jpg";
-		paths[1] = base + boardName + "/sounds/" + objectName + ".wav";
+		paths[0] = BASE + boardName + "/images/" + objectName + ".jpg";
+		paths[1] = BASE + boardName + "/sounds/" + objectName + ".wav";
 		return paths;
 	}
 
