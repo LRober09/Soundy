@@ -16,8 +16,8 @@ public class SoundBoard {
 
 	private static final String SOUNDBOARD_DIRECTORY = "res/soundboards/";
 
-	public SoundBoard(ArrayList<SoundInformation> data) {
-		this.data = data;
+	public SoundBoard(List<SoundInformation> list) {
+		this.data = list;
 		this.view = new SoundBoardView(this);
 	}
 
