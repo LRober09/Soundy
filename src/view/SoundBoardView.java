@@ -2,6 +2,7 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,14 +13,14 @@ import model.SoundBoard;
 import model.SoundInformation;
 
 public class SoundBoardView extends GridPane {
-	public ArrayList<Button> buttons;
-	public ArrayList<String> locations;
+	public List<Button> buttons;
+	public List<String> locations;
 
 	public SoundBoardView(SoundBoard model) {
 		super();
 		int where = 0;
-		buttons = new ArrayList<Button>();
-		locations = new ArrayList<String>();
+		buttons = new ArrayList<>();
+		locations = new ArrayList<>();
 		for (SoundInformation info : model.getData()) {
 			String image = info.image;
 			String sound = info.sound;
