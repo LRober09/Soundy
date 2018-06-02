@@ -113,4 +113,8 @@ public class User {
 	public static User getCurrentUser() {
 		return User.currentUser;
 	}
+
+	public void decrementScore(int i) {
+		score-= score - i < 0 ? score : 1;
+	}
 }

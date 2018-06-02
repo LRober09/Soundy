@@ -1,8 +1,10 @@
 package view;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import model.GameDriver;
 import model.SettingsModel;
+import model.User;
 
 public class GameScene extends SScene {
 
@@ -17,7 +19,9 @@ public class GameScene extends SScene {
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Game: " + type.getValue(), true);
 		root.setCenter(SettingsModel.soundboard.getView());
-		GameDriver d = new GameDriver(type);
+		Label scoreboard = new Label(""+User.getCurrentUser().score);
+		root.setBottom(scoreboard);
+		GameDriver d = new GameDriver(type, scoreboard);
 		d.genNextItem();
 	}
 

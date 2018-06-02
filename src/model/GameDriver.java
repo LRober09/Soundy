@@ -3,12 +3,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.media.MediaPlayer;
+import main.Main;
 import view.SceneType;
 public class GameDriver {
 	private ArrayList<Button> sequence;
 	private ArrayList<Button> tempSequence;
-	public GameDriver(SceneType type) {
+	private Label score;
+	public GameDriver(SceneType type, Label scoreboard) {
+		score = scoreboard;
 		sequence = new ArrayList<>();
 		tempSequence = new ArrayList<>();
 		switch(type) {
@@ -42,8 +46,13 @@ public class GameDriver {
 			good = true;
 		} 
 		if(!good) {
+			Main.changeScene(SceneType.MAIN_MENU);
+			User.getCurrentUser().decrementScore(sequence.size() * sequence.size());
+			return;
 		}
 		if(tempSequence.isEmpty()) {
+			User.getCurrentUser().score+= sequence.size() * sequence.size();
+			score.setText(""+User.getCurrentUser().score);
 			genNextItem();
 		}
 	}
@@ -56,8 +65,12 @@ public class GameDriver {
 
 	private void guessClick(Button b) {
 		if(sequence.remove(0).equals(b)) {
+			User.getCurrentUser().score++;
 			genNextItem();
+			User.getCurrentUser().score++;
+			score.setText(""+User.getCurrentUser().score);
 		} else {
+			User.getCurrentUser().decrementScore(1);
 		}
 	}
 
