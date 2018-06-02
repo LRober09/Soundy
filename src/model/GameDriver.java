@@ -34,7 +34,6 @@ public class GameDriver {
 		for(Button b : SettingsModel.soundboard.getView().buttons) {
 			b.setOnAction(e -> memClick(b));
 		}
-		genNextItem();
 	}
 
 	private void memClick(Button b) {
@@ -53,7 +52,6 @@ public class GameDriver {
 		for(Button b : SettingsModel.soundboard.getView().buttons) {
 			b.setOnAction(e -> guessClick(b));
 		}
-		genNextItem();
 	}
 
 	private void guessClick(Button b) {
@@ -63,7 +61,7 @@ public class GameDriver {
 		}
 	}
 
-	private void genNextItem() {
+	public void genNextItem() {
 		Random rand = new Random();
 		int button = rand.nextInt(SettingsModel.soundboard.getView().buttons.size());
 		sequence.add(SettingsModel.soundboard.getView().buttons.get(button));

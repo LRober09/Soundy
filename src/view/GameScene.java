@@ -18,6 +18,7 @@ public class GameScene extends SScene {
 		Common.addTopBar(root, "Game: " + type.getValue(), true);
 		root.setCenter(SettingsModel.soundboard.getView());
 		GameDriver d = new GameDriver(type);
+		d.genNextItem();
 	}
 
 }
