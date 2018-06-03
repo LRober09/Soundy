@@ -11,8 +11,10 @@ public class GameDriver {
 	private ArrayList<Button> sequence;
 	private ArrayList<Button> tempSequence;
 	private Label score;
-	public GameDriver(SceneType type, Label scoreboard) {
+	private Label status;
+	public GameDriver(SceneType type, Label scoreboard, Label status) {
 		score = scoreboard;
+		status = status;
 		sequence = new ArrayList<>();
 		tempSequence = new ArrayList<>();
 		switch(type) {
@@ -53,6 +55,7 @@ public class GameDriver {
 		if(tempSequence.isEmpty()) {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + sequence.size() * sequence.size());
 			score.setText(""+User.getCurrentUser().getScore());
+			status.setText("Level " + sequence.size());
 			genNextItem();
 		}
 	}
@@ -68,8 +71,10 @@ public class GameDriver {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
 			genNextItem();
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
+			status.setText("you rock");
 			score.setText(""+User.getCurrentUser().getScore());
 		} else {
+			status.setText("you suck");
 			User.getCurrentUser().decrementScore(1);
 		}
 	}

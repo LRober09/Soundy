@@ -36,7 +36,6 @@ public class SQLite {
 		Connection connection = null;
 		connection = DriverManager.getConnection(DB_URL);
 		connection.setAutoCommit(true);
-		connection.close();
 		return connection;
 
 	}
@@ -62,7 +61,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
-			String variableValue, String condition, String conditionValue) throws SQLException {
+		String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
 		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
 				.replaceFirst("~", condition);

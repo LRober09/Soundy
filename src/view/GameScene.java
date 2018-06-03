@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import model.GameDriver;
 import model.SettingsModel;
 import model.User;
@@ -20,8 +21,12 @@ public class GameScene extends SScene {
 		Common.addTopBar(root, "Game: " + type.getValue(), true);
 		root.setCenter(SettingsModel.getSoundboard().getView());
 		Label scoreboard = new Label(""+User.getCurrentUser().getScore());
-		root.setBottom(scoreboard);
-		GameDriver d = new GameDriver(type, scoreboard);
+		Label status = new Label("");
+		GridPane g = new GridPane();
+		g.add(scoreboard,0,0);
+		g.add(status,0,1);
+		root.setBottom(g);
+		GameDriver d = new GameDriver(type, scoreboard, status);
 		d.genNextItem();
 	}
 
