@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Constants;
+import model.SettingsModel;
 
 /**
  * Child class of JavaFX Scene that performs basic build-up operations on
@@ -27,6 +28,7 @@ public class SScene extends Scene {
 		
 		BorderPane bp = new BorderPane();
 		bp.getStylesheets().add("assets/style.css");
+		bp.setBackground(SettingsModel.getBG()); 
 		return bp;
 	}
 

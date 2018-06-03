@@ -17,8 +17,11 @@ public class GameScene extends SScene {
 	 */
 	public GameScene(SceneType type) {
 		super();
+		String title = type == SceneType.GUESSING ? "Guessing" :
+					   type == SceneType.MEMORY   ? "Memory"   :
+						   							"Casual";
 		BorderPane root = (BorderPane) this.getRoot();
-		Common.addTopBar(root, "Game: " + type.getValue(), true);
+		Common.addTopBar(root, title, true);
 		root.setCenter(SettingsModel.getSoundboard().getView());
 		Label scoreboard = new Label(""+User.getCurrentUser().getScore());
 		Label status = new Label("");

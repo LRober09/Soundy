@@ -23,13 +23,18 @@ public class BoardSelectScene extends SScene {
 		GridPane grid = new GridPane();
 		File[] boards = new File("res/soundboards").listFiles();
 		int i = row;
-		for(File board : boards) {
+		for (File board : boards) {
 			SButton selectBoard = new SButton(board.getName());
-			selectBoard.setOnAction(event -> SettingsModel.setSoundboard(new SoundBoard(SoundBoard.nameToInfo(board.getName()))));
+			selectBoard.setOnAction(event -> {
+				SettingsModel.setSoundboard(new SoundBoard(SoundBoard.nameToInfo(board.getName())));
+				((BorderPane) this.getRoot()).setBackground(SettingsModel.getBG());
+				
+			});
+			
 			grid.add(selectBoard, 0, i++);
 		}
 		grid.setAlignment(Pos.CENTER);
 		root.setCenter(grid);
-	}	
+	}
 
 }
