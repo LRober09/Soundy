@@ -22,7 +22,7 @@ public class SettingsModel {
 	public static SoundBoard setSoundboard(SoundBoard soundboard) {
 		String name = getBoardName(soundboard.getData().get(0).getImage());
 		
-		Image img = new Image(new File(BASE_PATH + name + "/" + name + ".png").toURI().toString());		
+		Image img = new Image(new File(BASE_PATH + name + name.substring(0, name.length()-1) + ".png").toURI().toString());		
 	    BackgroundSize bSize = new BackgroundSize(Constants.SCREEN_HEIGHT, Constants.SCREEN_WIDTH, false, false, true, false);
 	    setBG(new Background(new BackgroundImage(img, BackgroundRepeat.ROUND,
 				BackgroundRepeat.ROUND, BackgroundPosition.CENTER, bSize))); 
@@ -31,8 +31,7 @@ public class SettingsModel {
 		return soundboard;
 	}
 	private static String getBoardName(String s) {
-		String name = s.split("/")[2];
-		return name;
+		return s.split("/")[2] + "/";
 	}
 	public static Background getBG() {
 		return bg == null ? Background.EMPTY : bg;
