@@ -17,9 +17,12 @@ public class GameScene extends SScene {
 	 */
 	public GameScene(SceneType type) {
 		super();
-		String title = type == SceneType.GUESSING ? "Guessing" :
-					   type == SceneType.MEMORY   ? "Memory"   :
-						   							"Casual";
+		String title = "Casual";
+		if(type == SceneType.GUESSING) {
+			title = "Guessing";
+		} else {
+			title = "Memory";
+		}
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, title, true);
 		root.setCenter(SettingsModel.getSoundboard().getView());
