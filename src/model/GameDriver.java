@@ -76,6 +76,7 @@ public class GameDriver {
 		} else {
 			status.setText("you suck");
 			User.getCurrentUser().decrementScore(1);
+			genNextItem();
 		}
 	}
 
