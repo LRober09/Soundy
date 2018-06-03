@@ -34,19 +34,10 @@ public class SQLite {
 	 */
 	private static Connection createConnection() throws SQLException {
 		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(DB_URL);
-			connection.setAutoCommit(true);
-			return connection;
-		} catch (Exception e) {
-			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (Exception e) {
-				connection = null;
-			}
-		}
+		connection = DriverManager.getConnection(DB_URL);
+		connection.setAutoCommit(true);
+		connection.close();
+		return connection;
 
 	}
 
@@ -73,21 +64,11 @@ public class SQLite {
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
 			String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
-		try {
-			String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
-					.replaceFirst("~", condition);
-			statement = connection.prepareStatement(base);
-			statement.setString(1, variableValue);
-			statement.setString(2, conditionValue);
-		} catch (Exception e) {
-			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (Exception e) {
-				connection = null;
-			}
-		}
+		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
+				.replaceFirst("~", condition);
+		statement = connection.prepareStatement(base);
+		statement.setString(1, variableValue);
+		statement.setString(2, conditionValue);
 		return statement;
 
 	}
@@ -110,20 +91,10 @@ public class SQLite {
 	private static PreparedStatement createPreparedSelectStatement(Connection connection, String table,
 			String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
-		try {
-			String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
-			statement = connection.prepareStatement(base);
-			statement.setString(1, conditionValue);
-		} catch (Exception e) {
-			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (Exception e) {
-				connection = null;
+		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
+		statement = connection.prepareStatement(base);
+		statement.setString(1, conditionValue);
 
-			}
-		}
 		return statement;
 	}
 
@@ -144,21 +115,11 @@ public class SQLite {
 	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
 			String hashHash) throws SQLException {
 		PreparedStatement statement = null;
-		try {
-			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-			statement = connection.prepareStatement(base);
-			statement.setString(1, username);
-			statement.setString(2, hashHash);
-		} catch (Exception e) {
-			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (Exception e) {
-				connection = null;
+		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+		statement = connection.prepareStatement(base);
+		statement.setString(1, username);
+		statement.setString(2, hashHash);
 
-			}
-		}
 		return statement;
 	}
 
