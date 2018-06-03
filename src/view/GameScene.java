@@ -33,7 +33,9 @@ public class GameScene extends SScene {
 		g.add(status,0,1);
 		root.setBottom(g);
 		GameDriver d = new GameDriver(type, scoreboard, status);
-		d.genNextItem();
+		if(type == SceneType.GUESSING || type == SceneType.MEMORY) {
+			d.genNextItem();
+	}
 	}
 
 }
