@@ -77,7 +77,7 @@ public class BoardCreatorScene extends SScene {
 			// this means the board is not yet set
 		}
 		BoardCreator.setSoundBoard(soundBoard);
-		ArrayList<Button> buttons = (ArrayList<Button>) soundBoard.getView().buttons;
+		ArrayList<Button> buttons = (ArrayList<Button>) soundBoard.getView().getButtons();
 		ArrayList<String> locations = (ArrayList<String>) soundBoard.getView().locations;
 		for (int i = 0; i < buttons.size(); i++) {
 			String location = locations.get(i);

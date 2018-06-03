@@ -68,22 +68,16 @@ public class SoundBoard {
 		return info;
 	}
 
-	public static boolean done = false;
-
-	public static boolean isDone() {
-		return done;
-	}
-
 	public void playSound(Button b) {
-		int i = getView().buttons.indexOf(b);
-		Media media = new Media(new File(data.get(i).sound).toURI().toString());
+		int i = getView().getButtons().indexOf(b);
+		Media media = new Media(new File(data.get(i).getSound()).toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
 	}
 
 	public MediaPlayer getplayer(Button b) {
-		int i = getView().buttons.indexOf(b);
-		Media media = new Media(new File(data.get(i).sound).toURI().toString());
+		int i = getView().getButtons().indexOf(b);
+		Media media = new Media(new File(data.get(i).getSound()).toURI().toString());
 		return new MediaPlayer(media);
 	}
 }

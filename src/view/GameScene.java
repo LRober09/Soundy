@@ -18,8 +18,8 @@ public class GameScene extends SScene {
 		super();
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Game: " + type.getValue(), true);
-		root.setCenter(SettingsModel.soundboard.getView());
-		Label scoreboard = new Label(""+User.getCurrentUser().score);
+		root.setCenter(SettingsModel.getSoundboard().getView());
+		Label scoreboard = new Label(""+User.getCurrentUser().getScore());
 		root.setBottom(scoreboard);
 		GameDriver d = new GameDriver(type, scoreboard);
 		d.genNextItem();

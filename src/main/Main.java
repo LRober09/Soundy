@@ -27,7 +27,7 @@ public class Main extends Application {
 		launch(args);
 	}
 	private static void initApp() {
-		SettingsModel.soundboard = new SoundBoard(SoundBoard.getDefaultList());
+		SettingsModel.setSoundboard(new SoundBoard(SoundBoard.getDefaultList()));
 	}
 	@Override
 	public void start(Stage stage) throws Exception {

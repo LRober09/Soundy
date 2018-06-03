@@ -29,13 +29,13 @@ public class GameDriver {
 	}
 	
 	private void initCasualDriver() {
-		for(Button b : SettingsModel.soundboard.getView().buttons) {
-			b.setOnAction(e -> SettingsModel.soundboard.playSound(b));
+		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
+			b.setOnAction(e -> SettingsModel.getSoundboard().playSound(b));
 		}		
 	}
 
 	private void initMemoryDriver() {
-		for(Button b : SettingsModel.soundboard.getView().buttons) {
+		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> memClick(b));
 		}
 	}
@@ -51,24 +51,24 @@ public class GameDriver {
 			return;
 		}
 		if(tempSequence.isEmpty()) {
-			User.getCurrentUser().score+= sequence.size() * sequence.size();
-			score.setText(""+User.getCurrentUser().score);
+			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + sequence.size() * sequence.size());
+			score.setText(""+User.getCurrentUser().getScore());
 			genNextItem();
 		}
 	}
 
 	private void initGuessingDriver() {
-		for(Button b : SettingsModel.soundboard.getView().buttons) {
+		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> guessClick(b));
 		}
 	}
 
 	private void guessClick(Button b) {
 		if(sequence.remove(0).equals(b)) {
-			User.getCurrentUser().score++;
+			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
 			genNextItem();
-			User.getCurrentUser().score++;
-			score.setText(""+User.getCurrentUser().score);
+			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
+			score.setText(""+User.getCurrentUser().getScore());
 		} else {
 			User.getCurrentUser().decrementScore(1);
 		}
@@ -76,8 +76,8 @@ public class GameDriver {
 
 	public void genNextItem() {
 		Random rand = new Random();
-		int button = rand.nextInt(SettingsModel.soundboard.getView().buttons.size());
-		sequence.add(SettingsModel.soundboard.getView().buttons.get(button));
+		int button = rand.nextInt(SettingsModel.getSoundboard().getView().getButtons().size());
+		sequence.add(SettingsModel.getSoundboard().getView().getButtons().get(button));
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
@@ -85,7 +85,7 @@ public class GameDriver {
 	private void playSequence() {
 		ArrayList<MediaPlayer> list = new ArrayList<>();
 		for(Button b : sequence) {
-			list.add(SettingsModel.soundboard.getplayer(b));
+			list.add(SettingsModel.getSoundboard().getplayer(b));
 		}
 		for(int i = 0; i < list.size(); i++) {
 			final int j = i;
