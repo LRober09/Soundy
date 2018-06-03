@@ -13,8 +13,8 @@ public class GameDriver {
 	private Label score;
 	private Label status;
 	public GameDriver(SceneType type, Label scoreboard, Label status) {
-		score = scoreboard;
-		status = status;
+		this.score = scoreboard;
+		this.status = status;
 		sequence = new ArrayList<>();
 		tempSequence = new ArrayList<>();
 		switch(type) {
