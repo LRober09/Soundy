@@ -1,9 +1,14 @@
 package view;
 
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
@@ -33,6 +38,7 @@ public class Common {
 		title.setText(name);
 		title.setFont(new Font("55", 55));
 		title.setAlignment(Pos.CENTER);
+		title.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(5), Insets.EMPTY)));
 		title.setTextAlignment(TextAlignment.CENTER);
 		top.setCenter(title);
 		root.setTop(top);
