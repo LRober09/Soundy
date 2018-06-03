@@ -14,13 +14,13 @@ import model.SoundInformation;
 
 public class SoundBoardView extends GridPane {
 	private List<Button> buttons;
-	public List<String> locations;
+	private List<String> locations;
 
 	public SoundBoardView(SoundBoard model) {
 		super();
 		int where = 0;
 		setButtons(new ArrayList<>());
-		locations = new ArrayList<>();
+		setLocations(new ArrayList<>());
 		for (SoundInformation info : model.getData()) {
 			String image = info.getImage();
 			String sound = info.getSound();
@@ -33,7 +33,7 @@ public class SoundBoardView extends GridPane {
 			cur.setOnAction(event -> model.playSound(sound));			
 			this.add(cur, where++, 0);
 			getButtons().add(cur);
-			locations.add(image);
+			getLocations().add(image);
 		}
 		this.setAlignment(Pos.CENTER);
 	}
@@ -44,5 +44,13 @@ public class SoundBoardView extends GridPane {
 
 	public void setButtons(List<Button> buttons) {
 		this.buttons = buttons;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 }

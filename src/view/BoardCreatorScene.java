@@ -78,7 +78,7 @@ public class BoardCreatorScene extends SScene {
 		}
 		BoardCreator.setSoundBoard(soundBoard);
 		ArrayList<Button> buttons = (ArrayList<Button>) soundBoard.getView().getButtons();
-		ArrayList<String> locations = (ArrayList<String>) soundBoard.getView().locations;
+		ArrayList<String> locations = (ArrayList<String>) soundBoard.getView().getLocations();
 		for (int i = 0; i < buttons.size(); i++) {
 			String location = locations.get(i);
 			buttons.get(i).setOnAction(event -> addToUserBoard(location));
