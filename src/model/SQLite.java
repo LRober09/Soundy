@@ -33,14 +33,19 @@ public class SQLite {
 	 *             If an error occurs when opening a connection
 	 */
 	private static Connection createConnection() throws SQLException {
-		Connection connection = DriverManager.getConnection(DB_URL);
-		connection.setAutoCommit(true);
-
-		return connection;
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection(DB_URL);
+			connection.setAutoCommit(true);
+			return connection;
+		} catch (Exception e) {
+			return null;
+		} finally {
+			connection.close();
+		}
 
 	}
 
-	
 	/**
 	 * Creates a PreparedStatement to perform an Update operation. The resulting SQL
 	 * query will be: "UPDATE table SET variable=variableValue WHERE
@@ -63,12 +68,18 @@ public class SQLite {
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
 			String variableValue, String condition, String conditionValue) throws SQLException {
-		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
-				.replaceFirst("~", condition);
-		PreparedStatement statement = connection.prepareStatement(base);
-		statement.setString(1, variableValue);
-		statement.setString(2, conditionValue);
-
+		PreparedStatement statement = null;
+		try {
+			String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
+					.replaceFirst("~", condition);
+			statement = connection.prepareStatement(base);
+			statement.setString(1, variableValue);
+			statement.setString(2, conditionValue);
+		} catch (Exception e) {
+			return null;
+		} finally {
+			statement.close();
+		}
 		return statement;
 
 	}
@@ -90,11 +101,17 @@ public class SQLite {
 	 */
 	private static PreparedStatement createPreparedSelectStatement(Connection connection, String table,
 			String condition, String conditionValue) throws SQLException {
-		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
-		PreparedStatement statement = connection.prepareStatement(base);
-		statement.setString(1, conditionValue);
+		PreparedStatement statement = null;
+		try {
+			String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
+			statement = connection.prepareStatement(base);
+			statement.setString(1, conditionValue);
+		} catch (Exception e) {
+			return null;
+		} finally {
+			statement.close();
+		}
 		return statement;
-
 	}
 
 	/**
@@ -113,11 +130,17 @@ public class SQLite {
 	 */
 	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
 			String hashHash) throws SQLException {
-		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-		PreparedStatement statement = connection.prepareStatement(base);
-		statement.setString(1, username);
-		statement.setString(2, hashHash);
-
+		PreparedStatement statement = null;
+		try {
+			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+			statement = connection.prepareStatement(base);
+			statement.setString(1, username);
+			statement.setString(2, hashHash);
+		} catch (Exception e) {
+			return null;
+		} finally {
+			statement.close();
+		}
 		return statement;
 	}
 
