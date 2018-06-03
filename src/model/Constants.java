@@ -10,23 +10,23 @@ public class Constants {
 	 */
 	private static int screenWidth = 1000;
 	private static int screenHeight = 500;
-	private static int zoom = 1;
+	private static double zoom = 1;
 	
 	public static final Pos DEFAULT_POS = Pos.CENTER;
 
 	private Constants() {
 	}
-	public static void setZoom(int z) {
+	public static void setZoom(double z) {
 		zoom = z;
 	}
-	public static int getZoom() {
+	public static double getZoom() {
 		return zoom;
 	}
 	public static int getSCREEN_WIDTH() {
-		return screenWidth * zoom;
+		return (int)(screenWidth * zoom);
 	}
 	public static int getSCREEN_HEIGHT() {
-		return screenHeight * zoom;
+		return (int)(screenHeight * zoom);
 	}
 
 }

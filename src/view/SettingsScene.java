@@ -4,6 +4,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
 import model.Constants;
+import model.SettingsModel;
 import ui.SButton;
 
 public class SettingsScene extends SScene {
@@ -16,13 +17,15 @@ public class SettingsScene extends SScene {
 		Common.addTopBar(root, "Settings", true);
 		SButton upZoom = new SButton("upZoom");
 		upZoom.setOnAction(e -> {
-			Constants.setZoom(Constants.getZoom() + 1);
+			Constants.setZoom(Constants.getZoom() + .25);
 			Main.refreshSize();
+			SettingsModel.getSoundboard().getView().refreshZoom();
 		});
 		SButton downZoom = new SButton("downZoom");
 		downZoom.setOnAction(e -> {
-			Constants.setZoom(Constants.getZoom() - 1);
+			Constants.setZoom(Constants.getZoom() - .25);
 			Main.refreshSize();
+			SettingsModel.getSoundboard().getView().refreshZoom();
 		});
 		GridPane mid = new GridPane();
 		mid.add(upZoom, 0, 0);
