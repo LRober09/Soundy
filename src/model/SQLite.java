@@ -39,9 +39,13 @@ public class SQLite {
 			connection.setAutoCommit(true);
 			return connection;
 		} catch (Exception e) {
-			return null;
+				return null;
 		} finally {
-			connection.close();
+			try {
+				connection.close();
+			} catch(Exception e) {
+				
+			}
 		}
 
 	}
@@ -78,7 +82,11 @@ public class SQLite {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			statement.close();
+			try {
+				connection.close();
+			} catch(Exception e) {
+				
+			}
 		}
 		return statement;
 
@@ -109,8 +117,11 @@ public class SQLite {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			statement.close();
-		}
+			try {
+				connection.close();
+			} catch(Exception e) {
+				
+			}		}
 		return statement;
 	}
 
@@ -139,8 +150,11 @@ public class SQLite {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			statement.close();
-		}
+			try {
+				connection.close();
+			} catch(Exception e) {
+				
+			}		}
 		return statement;
 	}
 
