@@ -20,7 +20,7 @@ public class SScene extends Scene {
 	 * Default constructor
 	 */
 	public SScene() {
-		super(buildBoarder(), Constants.getSCREEN_WIDTH(), Constants.getSCREEN_HEIGHT());
+		super(buildBoarder(), Constants.getScreenWidth(), Constants.getScreenHeight());
 	}
 	
 	private static BorderPane buildBoarder() {
@@ -37,7 +37,7 @@ public class SScene extends Scene {
 	 * @param layout JavaFX Pos layout
 	 */
 	public SScene(Pos layout) {
-		super(buildGrid(layout), Constants.getSCREEN_WIDTH(), Constants.getSCREEN_HEIGHT());
+		super(buildGrid(layout), Constants.getScreenWidth(), Constants.getScreenHeight());
 	}
 
 	/**

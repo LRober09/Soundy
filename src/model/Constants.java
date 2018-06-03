@@ -22,10 +22,10 @@ public class Constants {
 	public static double getZoom() {
 		return zoom;
 	}
-	public static int getSCREEN_WIDTH() {
+	public static int getScreenWidth() {
 		return (int)(screenWidth * zoom);
 	}
-	public static int getSCREEN_HEIGHT() {
+	public static int getScreenHeight() {
 		return (int)(screenHeight * zoom);
 	}
 

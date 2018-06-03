@@ -47,8 +47,8 @@ public class LoginScene extends SScene {
 
 		// Setup TabPane
 		TabPane tabPane = new TabPane();
-		tabPane.setPrefWidth(Constants.getSCREEN_WIDTH());
-		tabPane.setPrefHeight(Constants.getSCREEN_HEIGHT() - 20);
+		tabPane.setPrefWidth(Constants.getScreenWidth());
+		tabPane.setPrefHeight(Constants.getScreenHeight() - 20);
 		Tab loginTab = new Tab("Login");
 		Tab registerTab = new Tab("Register");
 

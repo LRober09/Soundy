@@ -23,7 +23,7 @@ public class SettingsModel {
 		String name = getBoardName(soundboard.getData().get(0).getImage());
 		
 		Image img = new Image(new File(BASE_PATH + name + name.substring(0, name.length()-1) + ".png").toURI().toString());		
-	    BackgroundSize bSize = new BackgroundSize(Constants.getSCREEN_HEIGHT(), Constants.getSCREEN_WIDTH(), false, false, true, false);
+	    BackgroundSize bSize = new BackgroundSize(Constants.getScreenHeight(), Constants.getScreenWidth(), false, false, true, false);
 	    setBG(new Background(new BackgroundImage(img, BackgroundRepeat.ROUND,
 				BackgroundRepeat.ROUND, BackgroundPosition.CENTER, bSize))); 
 		

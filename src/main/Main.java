@@ -62,8 +62,8 @@ public class Main extends Application {
 	 * This method switches what is actually being displayed
 	 */
 	public static void refreshSize() {
-		stage.setHeight(Constants.getSCREEN_HEIGHT());
-		stage.setWidth(Constants.getSCREEN_WIDTH());
+		stage.setHeight(Constants.getScreenHeight());
+		stage.setWidth(Constants.getScreenWidth());
 	}
 	private static Stage getStage() {
 		return Main.stage;
