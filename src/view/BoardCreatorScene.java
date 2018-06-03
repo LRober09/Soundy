@@ -39,6 +39,8 @@ public class BoardCreatorScene extends SScene {
 
 	private BorderPane selectorBottomBar() {
 		BorderPane bp = new BorderPane();
+		Insets split = new Insets(5);
+		
 		SButton save = new SButton("save");
 		save.setOnAction(event -> {
 			try {
@@ -55,11 +57,14 @@ public class BoardCreatorScene extends SScene {
 		createSelector(g);
 		g.setAlignment(Pos.CENTER);
 		bp.setTop(g);
+		BorderPane.setMargin(g, split);
 		name.setAlignment(Pos.CENTER);
 		name.setMaxWidth(300);
 		bp.setCenter(name);		
+		BorderPane.setMargin((Node)name, split);
 		save.setAlignment(Pos.CENTER);
 		bp.setBottom(save);
+		BorderPane.setMargin((Node)save, split);
 		BorderPane.setAlignment(save, Pos.CENTER);
 		return bp;
 	}
@@ -73,6 +78,8 @@ public class BoardCreatorScene extends SScene {
 				updateSoundBoard(new SoundBoard(SoundBoard.nameToInfo(board.getName())));
 			});
 			grid.add(selectBoard, i++, 0);
+			grid.setHgap(5);
+			
 		}
 	}
 
@@ -107,5 +114,6 @@ public class BoardCreatorScene extends SScene {
 		BoardCreator.newBoard = board;
 		board.getView().setAlignment(Pos.CENTER);
 		center.add(board.getView(), 0, 0);
+		center.setVgap(20);
 	}
 }

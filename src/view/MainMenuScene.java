@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +32,7 @@ public class MainMenuScene extends SScene {
 		BorderPane root = (BorderPane) this.getRoot();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
+		grid.setVgap(5);
 		addTitle(root);
 		addButtons(grid);
 		root.setCenter(grid);
@@ -83,6 +85,8 @@ public class MainMenuScene extends SScene {
 				b.setText(s);
 				b.setOnAction(buttonHandler);
 				grid.add(b, 0, i);
+				GridPane.setHalignment(b, HPos.CENTER);
+				
 			}
 			i++;
 		}
