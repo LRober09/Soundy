@@ -20,7 +20,7 @@ public class GameScene extends SScene {
 		String title = "Casual";
 		if(type == SceneType.GUESSING) {
 			title = "Guessing";
-		} else {
+		} else if(type == SceneType.MEMORY){
 			title = "Memory";
 		}
 		BorderPane root = (BorderPane) this.getRoot();
