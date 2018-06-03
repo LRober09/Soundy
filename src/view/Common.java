@@ -39,8 +39,8 @@ public class Common {
 		title.setFont(new Font("55", 55));
 		title.setAlignment(Pos.CENTER);
 		title.setBackground(new Background(new BackgroundFill(Color.web("#2D9CDB"), new CornerRadii(25), Insets.EMPTY)));
-		title.setTextAlignment(TextAlignment.CENTER);
 		title.setTextFill(Color.WHITE);
+		title.setTextAlignment(TextAlignment.CENTER);
 		top.setCenter(title);
 		root.setTop(top);
 	}

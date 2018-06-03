@@ -18,24 +18,24 @@ public class GameScene extends SScene {
 	public GameScene(SceneType type) {
 		super();
 		String title = "Casual";
-		if(type == SceneType.GUESSING) {
+		if (type == SceneType.GUESSING) {
 			title = "Guessing";
-		} else if(type == SceneType.MEMORY){
+		} else if (type == SceneType.MEMORY) {
 			title = "Memory";
 		}
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, title, true);
 		root.setCenter(SettingsModel.getSoundboard().getView());
-		Label scoreboard = new Label(""+User.getCurrentUser().getScore());
+		Label scoreboard = new Label("" + User.getCurrentUser().getScore());
 		Label status = new Label("");
 		GridPane g = new GridPane();
-		g.add(scoreboard,0,0);
-		g.add(status,0,1);
+		g.add(scoreboard, 0, 0);
+		g.add(status, 0, 1);
 		root.setBottom(g);
 		GameDriver d = new GameDriver(type, scoreboard, status);
-		if(type == SceneType.GUESSING || type == SceneType.MEMORY) {
+		if (type == SceneType.GUESSING || type == SceneType.MEMORY) {
 			d.genNextItem();
-	}
+		}
 	}
 
 }

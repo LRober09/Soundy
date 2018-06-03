@@ -2,11 +2,16 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
@@ -43,9 +48,10 @@ public class MainMenuScene extends SScene {
 		title.setFont(new Font("55", 55));
 		title.setAlignment(Pos.CENTER);
 		title.setTextAlignment(TextAlignment.CENTER);
+		title.setBackground(new Background(new BackgroundFill(Color.web("#2D9CDB"), new CornerRadii(25), Insets.EMPTY)));
+		title.setTextFill(Color.WHITE);
 		BorderPane.setAlignment(title, Pos.CENTER);
 		root.setTop(title);
-
 	}
 
 	// add buttons to the grid and set up the event handler
