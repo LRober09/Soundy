@@ -10,7 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import view.SoundBoardView;
 
 public class SoundBoard {
-	private static String[] defaultList = { "pig", "cow", "chicken", "dog", "horse" };
+	private static String[] defaultList = { "Pig", "Cow", "Chicken", "Dog", "Horse", "Fox", "Goat" };
 	private SoundBoardView view;
 	private List<SoundInformation> data;
 
@@ -67,11 +67,11 @@ public class SoundBoard {
 		}
 		return info;
 	}
-
+	private MediaPlayer mediaPlayer;
 	public void playSound(Button b) {
 		int i = getView().getButtons().indexOf(b);
 		Media media = new Media(new File(data.get(i).getSound()).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
 	}
 

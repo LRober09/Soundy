@@ -8,13 +8,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.SettingsModel;
 import model.SoundBoard;
+import model.SoundPlayer;
 import ui.SButton;
 
 public class BoardSelectScene extends SScene {
 
 	public BoardSelectScene() {
 		super();
-
+		SoundPlayer.play("SelectBoard");
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Board Select", true);
 		createSelector(root, 0);

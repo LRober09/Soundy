@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
+import model.SoundPlayer;
 
 public class MainMenuScene extends SScene {
 	// These are the keys used to handle button clicks and set the text of the
@@ -33,11 +34,12 @@ public class MainMenuScene extends SScene {
 
 	public MainMenuScene() {
 		super();
-
+		SoundPlayer.play("Welcome");
 		BorderPane root = (BorderPane) this.getRoot();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setVgap(5);
+		
 		addTitle(root);
 		addButtons(grid);
 		root.setCenter(grid);

@@ -1,5 +1,6 @@
 package model; 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.scene.control.Button;
@@ -31,12 +32,14 @@ public class GameDriver {
 	}
 	
 	private void initCasualDriver() {
+		SoundPlayer.play("Casual");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> SettingsModel.getSoundboard().playSound(b));
 		}		
 	}
 
 	private void initMemoryDriver() {
+		SoundPlayer.play("Memory");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> memClick(b));
 		}
@@ -61,6 +64,7 @@ public class GameDriver {
 	}
 
 	private void initGuessingDriver() {
+		SoundPlayer.play("Guessing");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> guessClick(b));
 		}
@@ -87,9 +91,9 @@ public class GameDriver {
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
-
+	private List<MediaPlayer> list;
 	private void playSequence() {
-		ArrayList<MediaPlayer> list = new ArrayList<>();
+		list = new ArrayList<>();
 		for(Button b : sequence) {
 			list.add(SettingsModel.getSoundboard().getplayer(b));
 		}

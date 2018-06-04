@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.BoardCreator;
 import model.SoundBoard;
+import model.SoundPlayer;
 import ui.SButton;
 import ui.STextField;
 
@@ -21,6 +22,7 @@ public class BoardCreatorScene extends SScene {
 	private GridPane center;
 	public BoardCreatorScene() {
 		super();
+		SoundPlayer.play("CreateBoard");
 		BoardCreator.setPathList(new ArrayList<String[]>());
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Board Create", true);
