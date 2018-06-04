@@ -34,9 +34,19 @@ public class SQLite {
 	 */
 	private static Connection createConnection() throws SQLException {
 		Connection connection = null;
-		connection = DriverManager.getConnection(DB_URL);
-		connection.setAutoCommit(true);
-		return connection;
+		try {
+			connection = DriverManager.getConnection(DB_URL);
+			connection.setAutoCommit(true);
+			return connection;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			if (connection != null) {
+				connection.close();
+			}
+
+			return null;
+		}
+
 	}
 
 	/**
@@ -63,7 +73,7 @@ public class SQLite {
 			String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
 		try {
-			
+
 			String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
 					.replaceFirst("~", condition);
 			statement = connection.prepareStatement(base);
@@ -72,10 +82,10 @@ public class SQLite {
 			return statement;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
-			if(statement != null) {
+			if (statement != null) {
 				statement.close();
 			}
-			
+
 			return null;
 		}
 
@@ -115,62 +125,16 @@ public class SQLite {
 
 	}
 
-	/**
-	 * Creates a PreparedStatement to perform an insert on the User table. The
-	 * resulting SQL query will be: "INSERT INTO Users (Username, Password) VALUES
-	 * (username, hash)"
-	 * 
-	 * @param connection
-	 *            The database connnection
-	 * @param username
-	 *            The username to insert
-	 * @param hashHash
-	 *            The hashed hash to insert
-	 * @return A PreparedStatement for the given Connection
-	 * @throws SQLException
-	 */
-	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
-			String hashHash) throws SQLException {
-		PreparedStatement statement = null;
-		try {
-			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-			statement = connection.prepareStatement(base);
+
+
+	public static SQLResponseCodes insertUser(String username, String hashHash) throws SQLException {
+		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+		try (Connection connection = DriverManager.getConnection(DB_URL);PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
 			statement.setString(1, username);
 			statement.setString(2, hashHash);
-
-			return statement;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			if (statement != null) {
-				statement.close();
-			}
-			return null;
-		}
-	}
-
-	/**
-	 * Insert a user into the SQLite database
-	 * 
-	 * @param username
-	 *            User's username
-	 * @param hashHash
-	 *            User's hashed hash
-	 * @return An SQLResponseCode corresponding to the result of the insert
-	 *         operation
-	 * @throws SQLException
-	 *             if an exception occurs while trying to close the connection in a
-	 *             catch block
-	 */
-	public static SQLResponseCodes insertUser(String username, String hashHash) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUserInsertStatement(connection, username,
-						hashHash)) {
-			if (statement != null) {
-				statement.execute();
-			} else {
-				return SQLResponseCodes.SQL_EXCEPTION;
-			}
-
+			
+			statement.execute();
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLiteException e) {
 			if (e.getErrorCode() == 19) {
@@ -180,11 +144,12 @@ public class SQLite {
 			} else {
 				return SQLResponseCodes.SQL_EXCEPTION;
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
 	}
+
 
 	/**
 	 * Retrieves a user's ID
