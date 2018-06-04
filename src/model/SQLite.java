@@ -60,7 +60,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
-		String variableValue, String condition, String conditionValue) throws SQLException {
+			String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
 		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
 				.replaceFirst("~", condition);
@@ -89,11 +89,20 @@ public class SQLite {
 	private static PreparedStatement createPreparedSelectStatement(Connection connection, String table,
 			String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
-		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
-		statement = connection.prepareStatement(base);
-		statement.setString(1, conditionValue);
+		try {
+			String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
+			statement = connection.prepareStatement(base);
+			statement.setString(1, conditionValue);
 
-		return statement;
+			return statement;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			if (statement != null) {
+				statement.close();
+			}
+			return null;
+		}
+
 	}
 
 	/**
@@ -114,15 +123,15 @@ public class SQLite {
 			String hashHash) throws SQLException {
 		PreparedStatement statement = null;
 		try {
-		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-		statement = connection.prepareStatement(base);
-		statement.setString(1, username);
-		statement.setString(2, hashHash);
-		
-		return statement;
+			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+			statement = connection.prepareStatement(base);
+			statement.setString(1, username);
+			statement.setString(2, hashHash);
+
+			return statement;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
-			if(statement != null) {
+			if (statement != null) {
 				statement.close();
 			}
 			return null;
@@ -146,7 +155,7 @@ public class SQLite {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedUserInsertStatement(connection, username,
 						hashHash)) {
-			if(statement != null) {
+			if (statement != null) {
 				statement.execute();
 			} else {
 				return SQLResponseCodes.SQL_EXCEPTION;
@@ -178,9 +187,8 @@ public class SQLite {
 	public static int getUserId(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
-						username);
-				ResultSet result = statement.executeQuery()) {
-
+						username); ) {
+			ResultSet result = statement.executeQuery();
 			int id = -1;
 
 			while (result.next()) {
