@@ -2,6 +2,7 @@ package view;
 
 import java.io.File;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -32,6 +33,8 @@ public class BoardSelectScene extends SScene {
 			});
 			
 			grid.add(selectBoard, 0, i++);
+			GridPane.setHalignment(selectBoard,  HPos.CENTER);
+			grid.setVgap(5);
 		}
 		grid.setAlignment(Pos.CENTER);
 		root.setCenter(grid);
