@@ -16,11 +16,11 @@ public class SQLite {
 	private static final String DB_URL = "jdbc:sqlite:soundy.db";
 	private static final Logger logger = Logger.getLogger(SQLite.class.getName());
 
-	private static final String USERS = "Users";
-	private static final String USERNAME = "Username";
 	private static final String TOKEN = "Token";
 	private static final String PASSWORD = "Password";
 	private static final String ID = "ID";
+	
+	private static final String SELECT_FROM_USERS = "SELECT * FROM Users WHERE Username=?";
 
 	private SQLite() {
 	}
@@ -51,27 +51,30 @@ public class SQLite {
 	}
 
 	public static int getUserId(String username) throws SQLException {
-		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
-				PreparedStatement statement = connection.prepareStatement(base);) {
+				PreparedStatement statement = connection.prepareStatement(SELECT_FROM_USERS);) {
 			connection.setAutoCommit(true);
 			statement.setString(1, username);
 
-			try (ResultSet result = statement.executeQuery();) {
-				int id = -1;
-
-				while (result.next()) {
-					id = result.getInt(ID);
-				}
-
-				return id;
-			} catch (Exception e) {
-				throw new Exception();
-			}
-
+			return tryGetUserId(statement);
+			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return -1;
+		}
+	}
+	
+	private static int tryGetUserId(PreparedStatement statement) throws SQLException {
+		try (ResultSet result = statement.executeQuery();) {
+			int id = -1;
+
+			while (result.next()) {
+				id = result.getInt(ID);
+			}
+
+			return id;
+		} catch (Exception e) {
+			throw new SQLException();
 		}
 	}
 
@@ -84,26 +87,30 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserPassword(String username) throws SQLException {
-		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
-				PreparedStatement statement = connection.prepareStatement(base);) {
+				PreparedStatement statement = connection.prepareStatement(SELECT_FROM_USERS);) {
 			connection.setAutoCommit(true);
 			statement.setString(1, username);
 
-			try (ResultSet result = statement.executeQuery();) {
-				String hash = "";
-				while (result.next()) {
-					hash = result.getString(PASSWORD);
-				}
-
-				return hash;
-			} catch (Exception e) {
-				throw new Exception();
-			}
-
+			return tryGetUserPassword(statement);
+			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return "";
+		}
+
+	}
+	
+	private static String tryGetUserPassword(PreparedStatement statement) throws SQLException {
+		try (ResultSet result = statement.executeQuery();) {
+			String hash = "";
+			while (result.next()) {
+				hash = result.getString(PASSWORD);
+			}
+
+			return hash;
+		} catch (Exception e) {
+			throw new SQLException();
 		}
 
 	}
@@ -118,26 +125,29 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserToken(String username) throws SQLException {
-		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
-				PreparedStatement statement = connection.prepareStatement(base);) {
+				PreparedStatement statement = connection.prepareStatement(SELECT_FROM_USERS);) {
 			connection.setAutoCommit(true);
 			statement.setString(1, username);
 
-			try (ResultSet result = statement.executeQuery();) {
-				String hash = "";
-				while (result.next()) {
-					hash = result.getString(TOKEN);
-				}
-
-				return hash;
-			} catch (Exception e) {
-				throw new Exception();
-			}
+			return tryGetUserToken(statement);
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return "";
+		}
+	}
+	
+	private static String tryGetUserToken(PreparedStatement statement) throws SQLException {
+		try (ResultSet result = statement.executeQuery();) {
+			String hash = "";
+			while (result.next()) {
+				hash = result.getString(TOKEN);
+			}
+
+			return hash;
+		} catch (Exception e) {
+			throw new SQLException();
 		}
 	}
 
