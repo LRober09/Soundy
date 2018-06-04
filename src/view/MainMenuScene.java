@@ -2,11 +2,16 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
@@ -21,13 +26,13 @@ public class MainMenuScene extends SScene {
 	private static final String BOARD_SELECT = "Select Sound Board";
 	private static final String BOARD_CREATE = "Create Sound Board";
 	private static final String SETTINGS = "settings";
-	private static final String SANDBOX = "Sandbox";
-	private static final String TITLE = "SOUNDY";
-	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT }, { BOARD_CREATE }, { SETTINGS }, { SANDBOX } };
+	private static final String TITLE = "Sound Town";
+	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT },
+			{ BOARD_CREATE }, { SETTINGS } };
 
 	public MainMenuScene() {
 		super();
-		
+
 		BorderPane root = (BorderPane) this.getRoot();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -43,10 +48,10 @@ public class MainMenuScene extends SScene {
 		title.setFont(new Font("55", 55));
 		title.setAlignment(Pos.CENTER);
 		title.setTextAlignment(TextAlignment.CENTER);
+		title.setBackground(new Background(new BackgroundFill(Color.web("#2D9CDB"), new CornerRadii(25), Insets.EMPTY)));
+		title.setTextFill(Color.WHITE);
 		BorderPane.setAlignment(title, Pos.CENTER);
 		root.setTop(title);
-		
-		
 	}
 
 	// add buttons to the grid and set up the event handler
@@ -65,8 +70,6 @@ public class MainMenuScene extends SScene {
 					Main.changeScene(SceneType.MEMORY);
 				} else if (which.equals(SETTINGS)) {
 					Main.changeScene(SceneType.SETTINGS);
-				} else if (which.equals(SANDBOX)) {
-					Main.changeScene(SceneType.SANDBOX);
 				} else if (which.equals(BOARD_SELECT)) {
 					Main.changeScene(SceneType.BOARD_SELECT);
 				} else if (which.equals(BOARD_CREATE)) {

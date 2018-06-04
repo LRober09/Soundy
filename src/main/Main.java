@@ -7,6 +7,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Constants;
 import model.SQLite;
 import model.SettingsModel;
 import model.SoundBoard;
@@ -27,13 +28,13 @@ public class Main extends Application {
 		launch(args);
 	}
 	private static void initApp() {
-		SettingsModel.soundboard = new SoundBoard(SoundBoard.getDefaultList());
+		SettingsModel.setSoundboard(new SoundBoard(SoundBoard.getDefaultList()));
 	}
 	@Override
 	public void start(Stage stage) throws Exception {
+	    stage.setResizable(false);
 		setStage(stage);
 		changeScene(SceneType.LOADING);
-		
 
 		stage.show();
 
@@ -60,6 +61,10 @@ public class Main extends Application {
 	/*
 	 * This method switches what is actually being displayed
 	 */
+	public static void refreshSize() {
+		stage.setHeight(Constants.getScreenHeight());
+		stage.setWidth(Constants.getScreenWidth());
+	}
 	private static Stage getStage() {
 		return Main.stage;
 	}

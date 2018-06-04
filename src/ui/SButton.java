@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.scene.control.Button;
-
 /**
  * SButton wraps and inherits the JavaFX button control, but allows it to be
  * initialized with styling
@@ -10,7 +9,6 @@ import javafx.scene.control.Button;
  *
  */
 public class SButton extends Button {
-
 	/**
 	 * Default Constructor (uses primary style)
 	 */

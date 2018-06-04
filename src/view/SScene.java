@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Constants;
+import model.SettingsModel;
 
 /**
  * Child class of JavaFX Scene that performs basic build-up operations on
@@ -19,14 +20,15 @@ public class SScene extends Scene {
 	 * Default constructor
 	 */
 	public SScene() {
-		super(buildBoarder(Constants.DEFAULT_POS), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		super(buildBoarder(), Constants.getScreenWidth(), Constants.getScreenHeight());
 	}
 	
-	private static BorderPane buildBoarder(Pos defaultPos) {
+	private static BorderPane buildBoarder() {
 
 		
 		BorderPane bp = new BorderPane();
 		bp.getStylesheets().add("assets/style.css");
+		bp.setBackground(SettingsModel.getBG()); 
 		return bp;
 	}
 
@@ -35,7 +37,7 @@ public class SScene extends Scene {
 	 * @param layout JavaFX Pos layout
 	 */
 	public SScene(Pos layout) {
-		super(buildGrid(layout), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		super(buildGrid(layout), Constants.getScreenWidth(), Constants.getScreenHeight());
 	}
 
 	/**

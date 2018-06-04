@@ -17,7 +17,7 @@ public class User {
 
 	private int id;
 	private String username;
-	public int score;
+	private int score;
 	private String token;
 
 	/**
@@ -112,5 +112,17 @@ public class User {
 	 */
 	public static User getCurrentUser() {
 		return User.currentUser;
+	}
+
+	public void decrementScore(int i) {
+		setScore(getScore() - (getScore() - i < 0 ? getScore() : 1));
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

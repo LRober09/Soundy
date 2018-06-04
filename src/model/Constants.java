@@ -8,12 +8,25 @@ public class Constants {
 	 * class to put them in. That can be decided later (there's not much code yet
 	 * anyway)
 	 */
-	public static final int SCREEN_WIDTH = 1000;
-	public static final int SCREEN_HEIGHT = 500;
+	private static int screenWidth = 1000;
+	private static int screenHeight = 500;
+	private static double zoom = 1;
 	
 	public static final Pos DEFAULT_POS = Pos.CENTER;
 
 	private Constants() {
+	}
+	public static void setZoom(double z) {
+		zoom = z;
+	}
+	public static double getZoom() {
+		return zoom;
+	}
+	public static int getScreenWidth() {
+		return (int)(screenWidth * zoom);
+	}
+	public static int getScreenHeight() {
+		return (int)(screenHeight * zoom);
 	}
 
 }

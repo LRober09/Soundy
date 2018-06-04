@@ -7,9 +7,9 @@ import java.util.List;
 
 public class BoardCreator {
 	private static final String BASE = "res/soundboards/";
-	public static SoundBoard soundBoard;
-	public static SoundBoard newBoard;
-	public static List<String[]> pathlist;
+	private static SoundBoard soundBoard;
+	private static SoundBoard newBoard;
+	private static List<String[]> pathlist;
 	
 	private BoardCreator() {
 		
@@ -57,6 +57,28 @@ public class BoardCreator {
 		paths[0] = BASE + boardName + "/images/" + objectName + ".jpg";
 		paths[1] = BASE + boardName + "/sounds/" + objectName + ".wav";
 		return paths;
+	}
+
+	public static SoundBoard getNewBoard() {
+		return newBoard;
+	}
+
+	public static void setNewBoard(SoundBoard newBoard) {
+		BoardCreator.newBoard = newBoard;
+	}
+
+	public static SoundBoard getSoundBoard() {
+		return soundBoard;
+	}
+
+	public static void setSoundBoard(SoundBoard soundBoard) {
+		BoardCreator.soundBoard = soundBoard;
+	}
+	public static List<String[]> getPathList() {
+		return pathlist;
+	}
+	public static void setPathList(List<String[]> l) {
+		pathlist = l;
 	}
 
 }

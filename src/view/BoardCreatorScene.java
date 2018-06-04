@@ -20,7 +20,7 @@ public class BoardCreatorScene extends SScene {
 	private GridPane center;
 	public BoardCreatorScene() {
 		super();
-		BoardCreator.pathlist = new ArrayList<String[]>();
+		BoardCreator.setPathList(new ArrayList<String[]>());
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Board Create", true);
 		root.setBottom(selectorBottomBar());
@@ -72,13 +72,13 @@ public class BoardCreatorScene extends SScene {
 
 	private void updateSoundBoard(SoundBoard soundBoard) {
 		try {
-			center.getChildren().remove(BoardCreator.soundBoard.getView());
+			center.getChildren().remove(BoardCreator.getSoundBoard().getView());
 		} catch (NullPointerException npe) {
 			// this means the board is not yet set
 		}
-		BoardCreator.soundBoard = soundBoard;
-		ArrayList<Button> buttons = soundBoard.getView().buttons;
-		ArrayList<String> locations = soundBoard.getView().locations;
+		BoardCreator.setSoundBoard(soundBoard);
+		ArrayList<Button> buttons = (ArrayList<Button>) soundBoard.getView().getButtons();
+		ArrayList<String> locations = (ArrayList<String>) soundBoard.getView().getLocations();
 		for (int i = 0; i < buttons.size(); i++) {
 			String location = locations.get(i);
 			buttons.get(i).setOnAction(event -> addToUserBoard(location));
@@ -88,15 +88,15 @@ public class BoardCreatorScene extends SScene {
 	}
 
 	private void addToUserBoard(String loc) {
-		for(int i = 0; i < BoardCreator.pathlist.size(); i++) {
-			if(BoardCreator.getName(BoardCreator.pathlist.get(i)[0]).equals(BoardCreator.getName(loc))){
-				BoardCreator.pathlist.remove(i);
+		for(int i = 0; i < BoardCreator.getPathList().size(); i++) {
+			if(BoardCreator.getName(BoardCreator.getPathList().get(i)[0]).equals(BoardCreator.getName(loc))){
+				BoardCreator.getPathList().remove(i);
 				break;
 			}
 		}
-		BoardCreator.pathlist.add(BoardCreator.getPaths(loc));
-		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo((ArrayList<String[]>) BoardCreator.pathlist));
-		BoardCreator.newBoard = board;
+		BoardCreator.getPathList().add(BoardCreator.getPaths(loc));
+		SoundBoard board = new SoundBoard(SoundBoard.pathListToInfo((ArrayList<String[]>) BoardCreator.getPathList()));
+		BoardCreator.setNewBoard(board);
 		board.getView().setAlignment(Pos.CENTER);
 		center.add(board.getView(), 0, 0);
 	}
