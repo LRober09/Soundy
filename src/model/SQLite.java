@@ -178,7 +178,7 @@ public class SQLite {
 	}
 
 	/**
-	 * Retrieves a user's
+	 * Retrieves a user's ID
 	 * 
 	 * @param username
 	 * @return
@@ -187,15 +187,34 @@ public class SQLite {
 	public static int getUserId(String username) throws SQLException {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
-						username); ) {
-			ResultSet result = statement.executeQuery();
-			int id = -1;
+						username);) {
+			ResultSet result = null;
+			try {
+				if(statement == null) {
+					return -1;
+				}
+				result = statement.executeQuery();
+				int id = -1;
 
-			while (result.next()) {
-				id = result.getInt(ID);
+				while (result.next()) {
+					id = result.getInt(ID);
+				}
+
+				result.close();
+
+				return id;
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, e.getMessage());
+				if(statement != null) {
+					statement.close();
+				}
+				
+				if(result != null) {
+					result.close();
+				}
+				return -1;
 			}
-
-			return id;
+			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return -1;
