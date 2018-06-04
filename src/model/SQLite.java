@@ -118,7 +118,7 @@ public class SQLite {
 		statement = connection.prepareStatement(base);
 		statement.setString(1, username);
 		statement.setString(2, hashHash);
-
+		
 		return statement;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
@@ -146,7 +146,11 @@ public class SQLite {
 		try (Connection connection = SQLite.createConnection();
 				PreparedStatement statement = SQLite.createPreparedUserInsertStatement(connection, username,
 						hashHash)) {
-			statement.execute();
+			if(statement != null) {
+				statement.execute();
+			} else {
+				return SQLResponseCodes.SQL_EXCEPTION;
+			}
 
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLiteException e) {
