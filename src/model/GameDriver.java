@@ -1,11 +1,9 @@
 package model; 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.media.MediaPlayer;
 import main.Main;
 import view.SceneType;
 public class GameDriver {
