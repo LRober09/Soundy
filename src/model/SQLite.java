@@ -37,7 +37,6 @@ public class SQLite {
 		connection = DriverManager.getConnection(DB_URL);
 		connection.setAutoCommit(true);
 		return connection;
-
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
-		String variableValue, String condition, String conditionValue) throws SQLException {
+			String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
 		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
 				.replaceFirst("~", condition);
@@ -114,12 +113,18 @@ public class SQLite {
 	private static PreparedStatement createPreparedUserInsertStatement(Connection connection, String username,
 			String hashHash) throws SQLException {
 		PreparedStatement statement = null;
-		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-		statement = connection.prepareStatement(base);
-		statement.setString(1, username);
-		statement.setString(2, hashHash);
+		try {
+			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+			statement = connection.prepareStatement(base);
+			statement.setString(1, username);
+			statement.setString(2, hashHash);
 
-		return statement;
+			return statement;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			statement.close();
+			return null;
+		}
 	}
 
 	/**
