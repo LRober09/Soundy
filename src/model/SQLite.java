@@ -17,7 +17,7 @@ public class SQLite {
 	private static final Logger logger = Logger.getLogger(SQLite.class.getName());
 
 	private static final String TOKEN = "Token";
-	private static final String PASSWORD = "Password";
+	private static final String PCONST = "Password";
 	private static final String ID = "ID";
 	
 	private static final String SELECT_FROM_USERS = "SELECT * FROM Users WHERE Username=?";
@@ -105,7 +105,7 @@ public class SQLite {
 		try (ResultSet result = statement.executeQuery();) {
 			String hash = "";
 			while (result.next()) {
-				hash = result.getString(PASSWORD);
+				hash = result.getString(PCONST);
 			}
 
 			return hash;
