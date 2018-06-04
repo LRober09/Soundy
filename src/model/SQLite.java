@@ -190,31 +190,32 @@ public class SQLite {
 						username);) {
 			ResultSet result = null;
 			try {
-				if(statement == null) {
+				if (statement != null) {
+					result = statement.executeQuery();
+					int id = -1;
+
+					while (result.next()) {
+						id = result.getInt(ID);
+					}
+
+					result.close();
+
+					return id;
+				} else {
 					return -1;
 				}
-				result = statement.executeQuery();
-				int id = -1;
-
-				while (result.next()) {
-					id = result.getInt(ID);
-				}
-
-				result.close();
-
-				return id;
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, e.getMessage());
-				if(statement != null) {
+				if (statement != null) {
 					statement.close();
 				}
-				
-				if(result != null) {
+
+				if (result != null) {
 					result.close();
 				}
 				return -1;
 			}
-			
+
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return -1;
