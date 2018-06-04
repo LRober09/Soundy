@@ -67,12 +67,11 @@ public class SoundBoard {
 		}
 		return info;
 	}
-	private MediaPlayer mediaPlayer;
 	public void playSound(Button b) {
 		int i = getView().getButtons().indexOf(b);
 		Media media = new Media(new File(data.get(i).getSound()).toURI().toString());
-		mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.play();
+		Constants.setMp(new MediaPlayer(media));
+		Constants.getMp().play();
 	}
 
 	public MediaPlayer getplayer(Button b) {

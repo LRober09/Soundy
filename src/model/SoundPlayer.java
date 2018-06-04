@@ -10,11 +10,10 @@ public class SoundPlayer {
 	private SoundPlayer() {
 		
 	}
-	private static MediaPlayer mediaPlayer;
 	public static boolean play(String string) {
 		Media media = new Media(new File(BASE + string + ".wav").toURI().toString());
-		mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.play();
+		Constants.setMp(new MediaPlayer(media));
+		Constants.getMp().play();
 		return true;
 	}
 	

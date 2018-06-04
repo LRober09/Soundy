@@ -1,6 +1,9 @@
 package model;
 
+import java.util.List;
+
 import javafx.geometry.Pos;
+import javafx.scene.media.MediaPlayer;
 
 public class Constants {
 	/*
@@ -11,6 +14,8 @@ public class Constants {
 	private static int screenWidth = 1000;
 	private static int screenHeight = 500;
 	private static double zoom = 1;
+	private static MediaPlayer mp;
+	private static List<MediaPlayer> list;
 	
 	public static final Pos DEFAULT_POS = Pos.CENTER;
 
@@ -28,6 +33,18 @@ public class Constants {
 	}
 	public static int getScreenHeight() {
 		return (int)(screenHeight * zoom);
+	}
+	public static List<MediaPlayer> getList() {
+		return list;
+	}
+	public static void setList(List<MediaPlayer> list) {
+		Constants.list = list;
+	}
+	public static MediaPlayer getMp() {
+		return mp;
+	}
+	public static void setMp(MediaPlayer mp) {
+		Constants.mp = mp;
 	}
 
 }

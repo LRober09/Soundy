@@ -91,21 +91,21 @@ public class GameDriver {
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
-	private List<MediaPlayer> list;
 	private void playSequence() {
-		list = new ArrayList<>();
+		
+		Constants.setList(new ArrayList<>());
 		for(Button b : sequence) {
-			list.add(SettingsModel.getSoundboard().getplayer(b));
+			Constants.getList().add(SettingsModel.getSoundboard().getplayer(b));
 		}
-		for(int i = 0; i < list.size(); i++) {
+		for(int i = 0; i < Constants.getList().size(); i++) {
 			final int j = i;
-			list.get(i).setOnEndOfMedia(() -> {
-				if(j + 1 < list.size()) {
-					list.get(j).dispose();
-					list.get(j+1).play();
+			Constants.getList().get(i).setOnEndOfMedia(() -> {
+				if(j + 1 < Constants.getList().size()) {
+					Constants.getList().get(j).dispose();
+					Constants.getList().get(j+1).play();
 			}});
 			
 		}
-		list.get(0).play();
+		Constants.getList().get(0).play();
 	}
 }
