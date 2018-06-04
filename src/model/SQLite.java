@@ -91,49 +91,14 @@ public class SQLite {
 
 	}
 
-	/**
-	 * Creates a PreparedStatement to perform a select operation. The resulting SQL
-	 * query will be: "SELECT * FROM table WHERE condition=conditionValue"
-	 * 
-	 * @param connection
-	 *            The database connection
-	 * @param table
-	 *            The table to select from
-	 * @param condition
-	 *            The condition by which to find the entry to select
-	 * @param conditionValue
-	 *            THe value of the condition
-	 * @return A PreparedStatement for the given Connection
-	 * @throws SQLException
-	 */
-	private static PreparedStatement createPreparedSelectStatement(Connection connection, String table,
-			String condition, String conditionValue) throws SQLException {
-		PreparedStatement statement = null;
-		try {
-			String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", table).replaceFirst("~", condition);
-			statement = connection.prepareStatement(base);
-			statement.setString(1, conditionValue);
-
-			return statement;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			if (statement != null) {
-				statement.close();
-			}
-			return null;
-		}
-
-	}
-
-
-
 	public static SQLResponseCodes insertUser(String username, String hashHash) throws SQLException {
 		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-		try (Connection connection = DriverManager.getConnection(DB_URL);PreparedStatement statement = connection.prepareStatement(base);) {
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
 			connection.setAutoCommit(true);
 			statement.setString(1, username);
 			statement.setString(2, hashHash);
-			
+
 			statement.execute();
 			return SQLResponseCodes.SUCCESS;
 		} catch (SQLiteException e) {
@@ -150,29 +115,24 @@ public class SQLite {
 		}
 	}
 
-
-	/**
-	 * Retrieves a user's ID
-	 * 
-	 * @param username
-	 * @return
-	 * @throws SQLException
-	 */
 	public static int getUserId(String username) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
-						username);) {
-			ResultSet result = null;
-			result = statement.executeQuery();
-			int id = -1;
+		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
+			statement.setString(1, username);
 
-			while (result.next()) {
-				id = result.getInt(ID);
+			try (ResultSet result = statement.executeQuery();) {
+				int id = -1;
+
+				while (result.next()) {
+					id = result.getInt(ID);
+				}
+
+				return id;
+			} catch (Exception e) {
+				throw new Exception();
 			}
-
-			result.close();
-
-			return id;
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
@@ -189,22 +149,30 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserPassword(String username) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
-						username);
-				ResultSet result = statement.executeQuery()) {
+		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
+			statement.setString(1, username);
 
-			String hash = "";
-			while (result.next()) {
-				hash = result.getString(PASSWORD);
+			try (ResultSet result = statement.executeQuery();) {
+				String hash = "";
+				while (result.next()) {
+					hash = result.getString(PASSWORD);
+				}
+
+				return hash;
+			} catch (Exception e) {
+				throw new Exception();
 			}
 
-			return hash;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return "";
 		}
+
 	}
+
 
 	/**
 	 * Retrieves a user's authentication token from the database
@@ -215,20 +183,26 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserToken(String username) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
-						username);
-				ResultSet result = statement.executeQuery()) {
+		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
+			statement.setString(1, username);
 
-			String hash = "";
-			while (result.next()) {
-				hash = result.getString(TOKEN);
+			try (ResultSet result = statement.executeQuery();) {
+				String hash = "";
+				while (result.next()) {
+					hash = result.getString(TOKEN);
+				}
+
+				return hash;
+			} catch (Exception e) {
+				throw new Exception();
 			}
 
-			return hash;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
-			return null;
+			return "";
 		}
 	}
 
