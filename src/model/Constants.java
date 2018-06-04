@@ -16,8 +16,9 @@ public class Constants {
 
 	private Constants() {
 	}
-	public static void setZoom(double z) {
+	public static boolean setZoom(double z) {
 		zoom = z;
+		return true;
 	}
 	public static double getZoom() {
 		return zoom;

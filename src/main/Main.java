@@ -61,9 +61,10 @@ public class Main extends Application {
 	/*
 	 * This method switches what is actually being displayed
 	 */
-	public static void refreshSize() {
+	public static boolean refreshSize() {
 		stage.setHeight(Constants.getScreenHeight());
 		stage.setWidth(Constants.getScreenWidth());
+		return true;
 	}
 	private static Stage getStage() {
 		return Main.stage;
@@ -71,7 +72,8 @@ public class Main extends Application {
 	private static void setStage(Stage s) {
 		Main.stage = s;
 	}
-	public static void changeScene(SceneType key) {
+	public static boolean changeScene(SceneType key) {
 		getStage().setScene(SceneFactory.get(key));
+		return true;
 	}
 }

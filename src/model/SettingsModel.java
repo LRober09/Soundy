@@ -36,7 +36,8 @@ public class SettingsModel {
 	public static Background getBG() {
 		return bg == null ? Background.EMPTY : bg;
 	}
-	public static void setBG(Background bg) {
+	public static boolean setBG(Background bg) {
 		SettingsModel.bg = bg;
+		return true;
 	}
 }

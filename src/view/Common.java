@@ -26,7 +26,7 @@ public class Common {
 		return b;
 	}
 
-	public static void addTopBar(BorderPane root, String name, boolean backbutton) {
+	public static boolean addTopBar(BorderPane root, String name, boolean backbutton) {
 		BorderPane top = new BorderPane();
 		Insets split = new Insets(5);
 		if (backbutton) {
@@ -46,6 +46,7 @@ public class Common {
 		title.setTextAlignment(TextAlignment.CENTER);
 		top.setCenter(title);
 		root.setTop(top);
+		return true;
 	}
 
 }
