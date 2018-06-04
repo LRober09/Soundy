@@ -60,7 +60,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
-			String variableValue, String condition, String conditionValue) throws SQLException {
+		String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
 		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
 				.replaceFirst("~", condition);
@@ -114,15 +114,17 @@ public class SQLite {
 			String hashHash) throws SQLException {
 		PreparedStatement statement = null;
 		try {
-			String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-			statement = connection.prepareStatement(base);
-			statement.setString(1, username);
-			statement.setString(2, hashHash);
+		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+		statement = connection.prepareStatement(base);
+		statement.setString(1, username);
+		statement.setString(2, hashHash);
 
-			return statement;
+		return statement;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
-			statement.close();
+			if(statement != null) {
+				statement.close();
+			}
 			return null;
 		}
 	}
