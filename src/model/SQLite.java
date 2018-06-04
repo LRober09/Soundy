@@ -62,12 +62,22 @@ public class SQLite {
 	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
 			String variableValue, String condition, String conditionValue) throws SQLException {
 		PreparedStatement statement = null;
-		String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
-				.replaceFirst("~", condition);
-		statement = connection.prepareStatement(base);
-		statement.setString(1, variableValue);
-		statement.setString(2, conditionValue);
-		return statement;
+		try {
+			
+			String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
+					.replaceFirst("~", condition);
+			statement = connection.prepareStatement(base);
+			statement.setString(1, variableValue);
+			statement.setString(2, conditionValue);
+			return statement;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			if(statement != null) {
+				statement.close();
+			}
+			
+			return null;
+		}
 
 	}
 
@@ -142,7 +152,7 @@ public class SQLite {
 	 * Insert a user into the SQLite database
 	 * 
 	 * @param username
-	 *            User's useranme
+	 *            User's username
 	 * @param hashHash
 	 *            User's hashed hash
 	 * @return An SQLResponseCode corresponding to the result of the insert
@@ -174,7 +184,6 @@ public class SQLite {
 			logger.log(Level.SEVERE, e.getMessage());
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
-
 	}
 
 	/**
@@ -189,32 +198,16 @@ public class SQLite {
 				PreparedStatement statement = SQLite.createPreparedSelectStatement(connection, USERS, USERNAME,
 						username);) {
 			ResultSet result = null;
-			try {
-				if (statement != null) {
-					result = statement.executeQuery();
-					int id = -1;
+			result = statement.executeQuery();
+			int id = -1;
 
-					while (result.next()) {
-						id = result.getInt(ID);
-					}
-
-					result.close();
-
-					return id;
-				} else {
-					return -1;
-				}
-			} catch (Exception e) {
-				logger.log(Level.SEVERE, e.getMessage());
-				if (statement != null) {
-					statement.close();
-				}
-
-				if (result != null) {
-					result.close();
-				}
-				return -1;
+			while (result.next()) {
+				id = result.getInt(ID);
 			}
+
+			result.close();
+
+			return id;
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
