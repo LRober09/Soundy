@@ -25,71 +25,6 @@ public class SQLite {
 	private SQLite() {
 	}
 
-	/**
-	 * Creates a connection with the database specified by DB_URL
-	 * 
-	 * @return An open connection to a database
-	 * @throws SQLException
-	 *             If an error occurs when opening a connection
-	 */
-	private static Connection createConnection() throws SQLException {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(DB_URL);
-			connection.setAutoCommit(true);
-			return connection;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			if (connection != null) {
-				connection.close();
-			}
-
-			return null;
-		}
-
-	}
-
-	/**
-	 * Creates a PreparedStatement to perform an Update operation. The resulting SQL
-	 * query will be: "UPDATE table SET variable=variableValue WHERE
-	 * condition=conditionValue"
-	 * 
-	 * @param connection
-	 *            The database connection
-	 * @param table
-	 *            The table to update
-	 * @param variable
-	 *            The variable in the table to update
-	 * @param variableValue
-	 *            The new value of the specified variable
-	 * @param condition
-	 *            The condition by which to find the entry to update
-	 * @param conditionValue
-	 *            The value of the condition
-	 * @return A PreparedStatement for the given Connection
-	 * @throws SQLException
-	 */
-	private static PreparedStatement createPreparedUpdateStatement(Connection connection, String table, String variable,
-			String variableValue, String condition, String conditionValue) throws SQLException {
-		PreparedStatement statement = null;
-		try {
-
-			String base = "UPDATE ~ SET ~=? WHERE ~=?".replaceFirst("~", table).replaceFirst("~", variable)
-					.replaceFirst("~", condition);
-			statement = connection.prepareStatement(base);
-			statement.setString(1, variableValue);
-			statement.setString(2, conditionValue);
-			return statement;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			if (statement != null) {
-				statement.close();
-			}
-
-			return null;
-		}
-
-	}
 
 	public static SQLResponseCodes insertUser(String username, String hashHash) throws SQLException {
 		String base = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
@@ -116,7 +51,7 @@ public class SQLite {
 	}
 
 	public static int getUserId(String username) throws SQLException {
-		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement statement = connection.prepareStatement(base);) {
 			connection.setAutoCommit(true);
@@ -149,7 +84,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserPassword(String username) throws SQLException {
-		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement statement = connection.prepareStatement(base);) {
 			connection.setAutoCommit(true);
@@ -183,7 +118,7 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static String getUserToken(String username) throws SQLException {
-		String base = "SELECT * FROM ~ WHERE ~=?".replaceFirst("~", USERS).replaceFirst("~", USERNAME);
+		String base = "SELECT * FROM Users WHERE Username=?";
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement statement = connection.prepareStatement(base);) {
 			connection.setAutoCommit(true);
@@ -218,12 +153,17 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static SQLResponseCodes updateUserToken(String username, String token) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, token,
-						USERNAME, username)) {
+		String base = "UPDATE Users SET Token=? WHERE Username=?";
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
+			statement.setString(1, token);
+			statement.setString(2, username);
+			
 			statement.execute();
 			return SQLResponseCodes.SUCCESS;
-		} catch (SQLException e) {
+			
+		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
@@ -238,12 +178,17 @@ public class SQLite {
 	 * @throws SQLException
 	 */
 	public static SQLResponseCodes clearUserToken(String username) throws SQLException {
-		try (Connection connection = SQLite.createConnection();
-				PreparedStatement statement = SQLite.createPreparedUpdateStatement(connection, USERS, TOKEN, null,
-						USERNAME, username)) {
+		String base = "UPDATE Users SET Token=null WHERE Username=?";
+		try (Connection connection = DriverManager.getConnection(DB_URL);
+				PreparedStatement statement = connection.prepareStatement(base);) {
+			connection.setAutoCommit(true);
+			statement.setString(1, username);
+			
 			statement.execute();
 			return SQLResponseCodes.SUCCESS;
-		} catch (SQLException e) {
+			
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
 			return SQLResponseCodes.SQL_EXCEPTION;
 		}
 	}
