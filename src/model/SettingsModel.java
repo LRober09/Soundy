@@ -31,14 +31,8 @@ public class SettingsModel {
 					BackgroundRepeat.ROUND, BackgroundPosition.CENTER, bSize)));
 		}
 		else {
-			//BackgroundSize bSize = new BackgroundSize(Constants.getScreenHeight(), Constants.getScreenWidth(), false, false, true, false);
 			setBG(null);
 		}
-		//Image img = new Image(new File(BASE_PATH + name + name.substring(0, name.length()-1) + ".png").toURI().toString());		
-	    //BackgroundSize bSize = new BackgroundSize(Constants.getScreenHeight(), Constants.getScreenWidth(), false, false, true, false);
-	    //setBG(new Background(new BackgroundImage(img, BackgroundRepeat.ROUND,
-		//		BackgroundRepeat.ROUND, BackgroundPosition.CENTER, bSize))); 
-		
 		SettingsModel.soundboard = soundboard;
 		return soundboard;
 	}
