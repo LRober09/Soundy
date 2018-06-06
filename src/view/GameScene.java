@@ -1,8 +1,11 @@
 package view;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import model.GameDriver;
@@ -31,13 +34,10 @@ public class GameScene extends SScene {
 		root.setCenter(SettingsModel.getSoundboard().getView());
 		Label scoreboard = new Label("Current Score: " + User.getCurrentUser().getScore());
 		Label status = new Label("");
-		if (SettingsModel.getBG() != Background.EMPTY) {
-			scoreboard.setTextFill(Color.WHITE);
-			status.setTextFill(Color.WHITE);
-		} else {
-			scoreboard.setTextFill(Color.BLACK);
-			status.setTextFill(Color.BLACK);
-		}
+		scoreboard.setBackground(new Background(new BackgroundFill(Color.web("#2D9CDB"), new CornerRadii(25), Insets.EMPTY)));
+		status.setBackground(new Background(new BackgroundFill(Color.web("#2D9CDB"), new CornerRadii(25), Insets.EMPTY)));
+		scoreboard.setTextFill(Color.WHITE);
+		status.setTextFill(Color.WHITE);
 		GridPane g = new GridPane();
 		g.add(scoreboard, 0, 1);
 		g.add(status, 0, 2);
