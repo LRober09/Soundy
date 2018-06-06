@@ -10,7 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import view.SoundBoardView;
 
 public class SoundBoard {
-	private static String[] defaultList = { "Pig", "Cow", "Chicken", "Dog", "Horse", "Fox", "Goat" };
+	private static String[] defaultList = { "Pig", "Cow", "Chicken", "Dog", "Horse", "Fox", "Goat", "Duck" };
 	private SoundBoardView view;
 	private List<SoundInformation> data;
 
