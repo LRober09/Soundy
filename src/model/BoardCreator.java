@@ -12,7 +12,6 @@ public class BoardCreator {
 	private static List<String[]> pathlist;
 	
 	private BoardCreator() {
-		
 	}
 
 	public static void saveBoard(String boardname) throws IOException {
@@ -74,9 +73,11 @@ public class BoardCreator {
 	public static void setSoundBoard(SoundBoard soundBoard) {
 		BoardCreator.soundBoard = soundBoard;
 	}
+	
 	public static List<String[]> getPathList() {
 		return pathlist;
 	}
+	
 	public static void setPathList(List<String[]> l) {
 		pathlist = l;
 	}

@@ -2,18 +2,20 @@ package view;
 
 import java.io.File;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.SettingsModel;
 import model.SoundBoard;
+import model.SoundPlayer;
 import ui.SButton;
 
 public class BoardSelectScene extends SScene {
 
 	public BoardSelectScene() {
 		super();
-
+		SoundPlayer.play("SelectBoard");
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Board Select", true);
 		createSelector(root, 0);
@@ -32,6 +34,8 @@ public class BoardSelectScene extends SScene {
 			});
 			
 			grid.add(selectBoard, 0, i++);
+			GridPane.setHalignment(selectBoard,  HPos.CENTER);
+			grid.setVgap(5);
 		}
 		grid.setAlignment(Pos.CENTER);
 		root.setCenter(grid);

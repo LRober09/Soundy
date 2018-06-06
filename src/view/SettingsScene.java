@@ -1,5 +1,7 @@
 package view;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import main.Main;
@@ -15,21 +17,25 @@ public class SettingsScene extends SScene {
 		super();
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Settings", true);
-		SButton upZoom = new SButton("upZoom");
+		SButton upZoom = new SButton("Zoom In");
 		upZoom.setOnAction(e -> {
 			Constants.setZoom(Constants.getZoom() + .25);
 			Main.refreshSize();
 			SettingsModel.getSoundboard().getView().refreshZoom();
 		});
-		SButton downZoom = new SButton("downZoom");
+		SButton downZoom = new SButton("Zoom Out");
 		downZoom.setOnAction(e -> {
 			Constants.setZoom(Constants.getZoom() - .25);
 			Main.refreshSize();
 			SettingsModel.getSoundboard().getView().refreshZoom();
 		});
 		GridPane mid = new GridPane();
+		mid.setAlignment(Pos.CENTER);
 		mid.add(upZoom, 0, 0);
+		GridPane.setHalignment(upZoom, HPos.CENTER);
 		mid.add(downZoom, 0, 1);
+		GridPane.setHalignment(downZoom, HPos.CENTER);
 		root.setCenter(mid);
+		mid.setVgap(5);
 	}
 }

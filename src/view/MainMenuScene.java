@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,27 +16,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
+import model.SoundPlayer;
 
 public class MainMenuScene extends SScene {
 	// These are the keys used to handle button clicks and set the text of the
 	// buttons.
-	// Might be useful to switch these into an arrayList
 	private static final String CASUAL = "casual";
 	private static final String MEMORY = "memory";
 	private static final String GUESSING = "guessing";
-	private static final String BOARD_SELECT = "Select Sound Board";
-	private static final String BOARD_CREATE = "Create Sound Board";
+	private static final String BOARD_SELECT = "select sound board";
+	private static final String BOARD_CREATE = "create sound soard";
 	private static final String SETTINGS = "settings";
-	private static final String TITLE = "Sound Town";
+	private static final String TITLE = "SoundTown";
 	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT },
 			{ BOARD_CREATE }, { SETTINGS } };
 
 	public MainMenuScene() {
 		super();
-
+		SoundPlayer.play("Welcome");
 		BorderPane root = (BorderPane) this.getRoot();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
+		grid.setVgap(5);
+		
 		addTitle(root);
 		addButtons(grid);
 		root.setCenter(grid);
@@ -86,6 +89,7 @@ public class MainMenuScene extends SScene {
 				b.setText(s);
 				b.setOnAction(buttonHandler);
 				grid.add(b, 0, i);
+				GridPane.setHalignment(b,  HPos.CENTER);
 			}
 			i++;
 		}

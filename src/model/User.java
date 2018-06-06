@@ -101,8 +101,9 @@ public class User {
 	 * @param user
 	 *            The new global current user
 	 */
-	public static void setCurrentUser(User user) {
+	public static boolean setCurrentUser(User user) {
 		User.currentUser = user;
+		return true;
 	}
 
 	/**

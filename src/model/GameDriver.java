@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.media.MediaPlayer;
 import main.Main;
 import view.SceneType;
 public class GameDriver {
@@ -31,12 +30,14 @@ public class GameDriver {
 	}
 	
 	private void initCasualDriver() {
+		SoundPlayer.play("Casual");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> SettingsModel.getSoundboard().playSound(b));
 		}		
 	}
 
 	private void initMemoryDriver() {
+		SoundPlayer.play("Memory");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> memClick(b));
 		}
@@ -54,13 +55,14 @@ public class GameDriver {
 		}
 		if(tempSequence.isEmpty()) {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + sequence.size() * sequence.size());
-			score.setText(""+User.getCurrentUser().getScore());
+			score.setText("Current score: "+User.getCurrentUser().getScore());
 			status.setText("Level " + sequence.size());
 			genNextItem();
 		}
 	}
 
 	private void initGuessingDriver() {
+		SoundPlayer.play("Guessing");
 		for(Button b : SettingsModel.getSoundboard().getView().getButtons()) {
 			b.setOnAction(e -> guessClick(b));
 		}
@@ -71,10 +73,10 @@ public class GameDriver {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
 			genNextItem();
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
-			status.setText("you rock");
-			score.setText(""+User.getCurrentUser().getScore());
+			status.setText("Correct!!");
+			score.setText("Current score: "+User.getCurrentUser().getScore());
 		} else {
-			status.setText("you suck");
+			status.setText("Oops! That's incorrect!");
 			User.getCurrentUser().decrementScore(1);
 			genNextItem();
 		}
@@ -87,21 +89,21 @@ public class GameDriver {
 		tempSequence.addAll(sequence);
 		playSequence();
 	}
-
 	private void playSequence() {
-		ArrayList<MediaPlayer> list = new ArrayList<>();
+		
+		Constants.setList(new ArrayList<>());
 		for(Button b : sequence) {
-			list.add(SettingsModel.getSoundboard().getplayer(b));
+			Constants.getList().add(SettingsModel.getSoundboard().getplayer(b));
 		}
-		for(int i = 0; i < list.size(); i++) {
+		for(int i = 0; i < Constants.getList().size(); i++) {
 			final int j = i;
-			list.get(i).setOnEndOfMedia(() -> {
-				if(j + 1 < list.size()) {
-					list.get(j).dispose();
-					list.get(j+1).play();
+			Constants.getList().get(i).setOnEndOfMedia(() -> {
+				if(j + 1 < Constants.getList().size()) {
+					Constants.getList().get(j).dispose();
+					Constants.getList().get(j+1).play();
 			}});
 			
 		}
-		list.get(0).play();
+		Constants.getList().get(0).play();
 	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,14 +13,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.BoardCreator;
 import model.SoundBoard;
+import model.SoundPlayer;
 import ui.SButton;
 import ui.STextField;
 
 public class BoardCreatorScene extends SScene {
 	private STextField name;
 	private GridPane center;
+	
 	public BoardCreatorScene() {
 		super();
+		SoundPlayer.play("CreateBoard");
 		BoardCreator.setPathList(new ArrayList<String[]>());
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, "Board Create", true);
@@ -35,6 +39,7 @@ public class BoardCreatorScene extends SScene {
 
 	private BorderPane selectorBottomBar() {
 		BorderPane bp = new BorderPane();
+		Insets split = new Insets(5);
 		SButton save = new SButton("save");
 		save.setOnAction(event -> {
 			try {
@@ -51,11 +56,14 @@ public class BoardCreatorScene extends SScene {
 		createSelector(g);
 		g.setAlignment(Pos.CENTER);
 		bp.setTop(g);
+		BorderPane.setMargin(g, split);
 		name.setAlignment(Pos.CENTER);
 		name.setMaxWidth(300);
 		bp.setCenter(name);		
+		BorderPane.setMargin((Node)name, split);
 		save.setAlignment(Pos.CENTER);
 		bp.setBottom(save);
+		BorderPane.setMargin((Node)save, split);
 		BorderPane.setAlignment(save, Pos.CENTER);
 		return bp;
 	}
@@ -67,6 +75,7 @@ public class BoardCreatorScene extends SScene {
 			SButton selectBoard = new SButton(board.getName());
 			selectBoard.setOnAction(event -> updateSoundBoard(new SoundBoard(SoundBoard.nameToInfo(board.getName()))));
 			grid.add(selectBoard, i++, 0);
+			grid.setHgap(5);
 		}
 	}
 
@@ -99,5 +108,6 @@ public class BoardCreatorScene extends SScene {
 		BoardCreator.setNewBoard(board);
 		board.getView().setAlignment(Pos.CENTER);
 		center.add(board.getView(), 0, 0);
+		center.setVgap(20);
 	}
 }

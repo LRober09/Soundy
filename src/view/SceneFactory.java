@@ -6,7 +6,6 @@ package view;
  */
 public class SceneFactory {
 	private SceneFactory() {
-
 	}
 
 	/*
@@ -43,5 +42,4 @@ public class SceneFactory {
 			return null;
 		}
 	}
-
 }
