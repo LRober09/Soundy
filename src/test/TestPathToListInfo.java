@@ -17,9 +17,8 @@ public class TestPathToListInfo {
 	public void testSize1() {
 		String test1;
 		String[] a1 = {"man", "bear"};
-		ArrayList<String[]> aList = new ArrayList<String[]>();
-		aList.add(a1);
-		List<String[]> list1 = aList;
+		ArrayList<String[]> list1 = new ArrayList<String[]>();
+		list1.add(a1);
 		List<SoundInformation> soundInfo1 = SoundBoard.pathListToInfo(list1);
 		test1 = soundInfo1.get(0).getImage() + soundInfo1.get(0).getSound();
 		assertEquals("manbear", test1);

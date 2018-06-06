@@ -25,7 +25,8 @@ public class TestListToInfo {
 	@Test
 	public void testSize15() {
 		StringBuilder sb = new StringBuilder();
-		String[] celebList = {"bradPitt", "bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt","bradPitt"};
+		String bp = "bradPitt";
+		String[] celebList = {bp, bp, bp, bp, bp, bp, bp, bp, bp, bp, bp, bp, bp, bp, bp};
 		List<SoundInformation> celebSoundList = SoundBoard.listToInfo(celebList,  "celeb");
 		for (int i = 0; i < celebSoundList.size(); i++) {
 			sb.append(celebSoundList.get(i).getImage() + celebSoundList.get(i).getSound());
