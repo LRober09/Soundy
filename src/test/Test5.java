@@ -1,6 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
+
+import javax.swing.JFrame;
+
 import model.SettingsModel;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundSize;
@@ -25,7 +28,9 @@ public class Test5 {
 	// Author: Nicky Kyono
 	@Test
 	public void test2() {
-		JFXPanel fxPan = new JFXPanel();
+		JFrame frame = new JFrame("FX");
+		JFXPanel fxPanel = new JFXPanel();
+		frame.add(fxPanel);
 		
 		SettingsModel.setBG(Background.EMPTY);		
 		

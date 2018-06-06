@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import model.SettingsModel;
 
 import javafx.embed.swing.JFXPanel;
@@ -17,7 +19,9 @@ public class Test6 {
 	// Author: Lucas Robertson
 	@Test
 	public void test1() {
-		JFXPanel fxPan = new JFXPanel();
+		JFrame frame = new JFrame("FX");
+		JFXPanel fxPanel = new JFXPanel();
+		frame.add(fxPanel);
 
 		SoundInformation soundInfo = new SoundInformation("/res/soundboards/farm/images/Cow.jpg", "/res/soundboards/farm/sounds/Cow.wav");
 		SoundInformation soundInfo2 = new SoundInformation("/res/soundboards/farm/images/Cow2.jpg", "/res/soundboards/farm/sounds/Cow2.wav");
