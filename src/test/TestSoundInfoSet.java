@@ -11,19 +11,21 @@ public class TestSoundInfoSet {
 	// Author: Henry Bowman
 	@Test
 	public void testSetImage() {
+		String update = "update";
 		SoundInformation testObj = new SoundInformation("test", "obj");
-		testObj.setImage("update");
+		testObj.setImage(update);
 		String res = testObj.getImage();
-		assertTrue(res.equals("update"));
+		assertTrue(res.equals(update));
 	}
 	
 	// Author: Henry Bowman
 	@Test
 	public void testSetSound() {
+		String update = "update";
 		SoundInformation testObj = new SoundInformation("test", "obj");
-		testObj.setSound("update");
+		testObj.setSound(update);
 		String res = testObj.getSound();
-		assertTrue(res.equals("update"));
+		assertTrue(res.equals(update));
 	}
 
 }

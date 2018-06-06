@@ -15,12 +15,12 @@ public class TestDefaultSoundBoard {
 	// Author: Brett Nelson
 	@Test
 	public void testDefaultSound() {
-		String output = "";
+		StringBuilder sb = new StringBuilder();
 		List<SoundInformation> defaultList = SoundBoard.getDefaultList();
 		for (int i = 0; i < defaultList.size(); i++) {
-			output += (defaultList.get(i).getImage() + defaultList.get(i).getSound());
+			sb.append(defaultList.get(i).getImage() + defaultList.get(i).getSound());
 		}
-		assertEquals("res/soundboards/farm/images/Pig.jpgres/soundboards/farm/sounds/Pig.wavres/soundboards/farm/images/Cow.jpgres/soundboards/farm/sounds/Cow.wavres/soundboards/farm/images/Chicken.jpgres/soundboards/farm/sounds/Chicken.wavres/soundboards/farm/images/Dog.jpgres/soundboards/farm/sounds/Dog.wavres/soundboards/farm/images/Horse.jpgres/soundboards/farm/sounds/Horse.wavres/soundboards/farm/images/Fox.jpgres/soundboards/farm/sounds/Fox.wavres/soundboards/farm/images/Goat.jpgres/soundboards/farm/sounds/Goat.wav", output);
+		assertEquals("res/soundboards/farm/images/Pig.jpgres/soundboards/farm/sounds/Pig.wavres/soundboards/farm/images/Cow.jpgres/soundboards/farm/sounds/Cow.wavres/soundboards/farm/images/Chicken.jpgres/soundboards/farm/sounds/Chicken.wavres/soundboards/farm/images/Dog.jpgres/soundboards/farm/sounds/Dog.wavres/soundboards/farm/images/Horse.jpgres/soundboards/farm/sounds/Horse.wavres/soundboards/farm/images/Fox.jpgres/soundboards/farm/sounds/Fox.wavres/soundboards/farm/images/Goat.jpgres/soundboards/farm/sounds/Goat.wav", sb.toString());
 	}
 	
 	// Author: Brett Nelson
