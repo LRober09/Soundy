@@ -21,30 +21,37 @@ public class Constants {
 
 	private Constants() {
 	}
+	
 	public static boolean setZoom(double z) {
 		zoom = z;
 		return true;
 	}
+	
 	public static double getZoom() {
 		return zoom;
 	}
+	
 	public static int getScreenWidth() {
 		return (int)(screenWidth * zoom);
 	}
+	
 	public static int getScreenHeight() {
 		return (int)(screenHeight * zoom);
 	}
+	
 	public static List<MediaPlayer> getList() {
 		return list;
 	}
+	
 	public static void setList(List<MediaPlayer> list) {
 		Constants.list = list;
 	}
+	
 	public static MediaPlayer getMp() {
 		return mp;
 	}
+	
 	public static void setMp(MediaPlayer mp) {
 		Constants.mp = mp;
 	}
-
 }

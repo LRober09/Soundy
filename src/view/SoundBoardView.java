@@ -42,6 +42,7 @@ public class SoundBoardView extends GridPane {
 	public List<Button> getButtons() {
 		return buttons;
 	}
+	
 	public void refreshZoom() {
 		for (Button b : buttons) {
 			ImageView iv = (ImageView)b.getGraphic();
@@ -50,6 +51,7 @@ public class SoundBoardView extends GridPane {
 			b.setGraphic(iv);
 		}
 	}
+	
 	public void setButtons(List<Button> buttons) {
 		this.buttons = buttons;
 	}

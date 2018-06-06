@@ -13,6 +13,5 @@ public class LoadingScene extends SScene {
 		
 		ProgressBar pb = new ProgressBar();
 		((BorderPane)this.getRoot()).setCenter(pb);
-	}
-	
+	}	
 }

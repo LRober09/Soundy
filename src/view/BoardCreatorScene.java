@@ -20,6 +20,7 @@ import ui.STextField;
 public class BoardCreatorScene extends SScene {
 	private STextField name;
 	private GridPane center;
+	
 	public BoardCreatorScene() {
 		super();
 		SoundPlayer.play("CreateBoard");

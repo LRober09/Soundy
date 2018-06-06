@@ -55,7 +55,7 @@ public class GameDriver {
 		}
 		if(tempSequence.isEmpty()) {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + sequence.size() * sequence.size());
-			score.setText(""+User.getCurrentUser().getScore());
+			score.setText("Current score: "+User.getCurrentUser().getScore());
 			status.setText("Level " + sequence.size());
 			genNextItem();
 		}
@@ -73,10 +73,10 @@ public class GameDriver {
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
 			genNextItem();
 			User.getCurrentUser().setScore(User.getCurrentUser().getScore() + 1);
-			status.setText("you rock");
-			score.setText(""+User.getCurrentUser().getScore());
+			status.setText("Correct!!");
+			score.setText("Current score: "+User.getCurrentUser().getScore());
 		} else {
-			status.setText("you suck");
+			status.setText("Oops! That's incorrect!");
 			User.getCurrentUser().decrementScore(1);
 			genNextItem();
 		}

@@ -21,14 +21,13 @@ import model.SoundPlayer;
 public class MainMenuScene extends SScene {
 	// These are the keys used to handle button clicks and set the text of the
 	// buttons.
-	// Might be useful to switch these into an arrayList
 	private static final String CASUAL = "casual";
 	private static final String MEMORY = "memory";
 	private static final String GUESSING = "guessing";
-	private static final String BOARD_SELECT = "Select Sound Board";
-	private static final String BOARD_CREATE = "Create Sound Board";
+	private static final String BOARD_SELECT = "select sound board";
+	private static final String BOARD_CREATE = "create sound soard";
 	private static final String SETTINGS = "settings";
-	private static final String TITLE = "Sound Town";
+	private static final String TITLE = "SoundTown";
 	private static final String[][] BUTTONS = { { CASUAL }, { MEMORY }, { GUESSING }, { BOARD_SELECT },
 			{ BOARD_CREATE }, { SETTINGS } };
 

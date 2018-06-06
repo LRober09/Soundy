@@ -1,8 +1,10 @@
 package view;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import model.GameDriver;
 import model.SettingsModel;
 import model.User;
@@ -27,8 +29,15 @@ public class GameScene extends SScene {
 		BorderPane root = (BorderPane) this.getRoot();
 		Common.addTopBar(root, title, true);
 		root.setCenter(SettingsModel.getSoundboard().getView());
-		Label scoreboard = new Label("" + User.getCurrentUser().getScore());
+		Label scoreboard = new Label("Current Score: " + User.getCurrentUser().getScore());
 		Label status = new Label("");
+		if (SettingsModel.getBG() != Background.EMPTY) {
+			scoreboard.setTextFill(Color.WHITE);
+			status.setTextFill(Color.WHITE);
+		} else {
+			scoreboard.setTextFill(Color.BLACK);
+			status.setTextFill(Color.BLACK);
+		}
 		GridPane g = new GridPane();
 		g.add(scoreboard, 0, 1);
 		g.add(status, 0, 2);

@@ -17,7 +17,6 @@ import ui.SButton;
 
 public class Common {
 	private Common() {
-
 	}
 
 	public static SButton backButton() {
@@ -48,6 +47,5 @@ public class Common {
 		root.setTop(top);
 		return true;
 	}
-
 }
 

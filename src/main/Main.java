@@ -27,9 +27,11 @@ public class Main extends Application {
 		initApp();
 		launch(args);
 	}
+	
 	private static void initApp() {
 		SettingsModel.setSoundboard(new SoundBoard(SoundBoard.getDefaultList()));
 	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 	    stage.setResizable(false);
@@ -66,12 +68,15 @@ public class Main extends Application {
 		stage.setWidth(Constants.getScreenWidth());
 		return true;
 	}
+	
 	private static Stage getStage() {
 		return Main.stage;
 	}
+	
 	private static void setStage(Stage s) {
 		Main.stage = s;
 	}
+	
 	public static boolean changeScene(SceneType key) {
 		getStage().setScene(SceneFactory.get(key));
 		return true;
