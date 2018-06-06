@@ -11,7 +11,7 @@ public class SoundPlayer {
 	}
 	
 	public static boolean play(String string) {
-		Media media = new Media(new File(BASE + string + ".wav").toURI().toString());
+		Media media = new Media(new File(BASE + string + "/" + ".wav").toURI().toString());
 		Constants.setMp(new MediaPlayer(media));
 		Constants.getMp().play();
 		return true;
